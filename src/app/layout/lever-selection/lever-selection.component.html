@@ -4,7 +4,7 @@
         <div class="row">
 
             <div class="col-sm-5">
-                <form novalidate (ngSubmit)="save()" [formGroup]="leverForm">
+                <form novalidate (ngSubmit)="submit()" [formGroup]="leverForm">
                     <div class="form-group">
                         <label for="efDate">Effective Date</label>
                         <input type="date" class="form-control" id="efDate" aria-describedby="efDate" placeholder="Enter Effective Date" formControlName="dateEffective">
@@ -22,11 +22,7 @@
                     <div class="form-group">
                         <label for="typeOfPlan">Type of Plan</label>
                         <select class="form-control" id="typeOfPlan" formControlName="typeOfPlan">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+      <option *ngFor="let plan of planTypes" [value]="plan.value">{{plan.value}}</option>
     </select>
                         <span class="help-block" *ngIf="(leverForm.get('typeOfPlan').touched || 
                                                          leverForm.get('typeOfPlan').dirty) && 
@@ -38,9 +34,26 @@
                     </div>
 
 
+                    <div class="form-group nic">
+                        <label for="typeOfPlan">Naics Or Sic Code</label>
+                        <select class="form-control" id="nics" formControlName="nics">
+     <option *ngFor="let naic of naics" [value]="naic.value">{{naic.value}}</option>
+    </select>
+                        <span class="help-block" *ngIf="(leverForm.get('nics').touched || 
+                                                         leverForm.get('nics').dirty) && 
+                                                         leverForm.get('nics').errors">
+                            <span *ngIf="leverForm.get('nics').errors.required">
+                                Please select type of planNics or Sic Code.
+                            </span>
+                        </span>
+                    </div>
+
+
+
+
                     <div class="form-group">
                         <label for="zipCode">ZipCode</label>
-                        <input type="number" class="form-control" id="zipCode" aria-describedby="zipCode" placeholder="Zip Code" formControlName="zipCode">
+                        <input class="form-control" id="zipCode" aria-describedby="zipCode" placeholder="Zip Code" formControlName="zipCode">
                         <span class="help-block" *ngIf="(leverForm.get('zipCode').touched || 
                                                          leverForm.get('zipCode').dirty) && 
                                                          leverForm.get('zipCode').errors">
@@ -54,7 +67,7 @@
 
                     <div class="form-group">
                         <label for="noOfEmps">Number Of Employees</label>
-                        <input type="number" class="form-control" id="noOfEmps" aria-describedby="noOfEmps" placeholder="Number Of Employees" formControlName="noOfEmps">
+                        <input onkeypress="return event.charCode >= 48" type="number" min="0" step="1" class="form-control" id="noOfEmps" aria-describedby="noOfEmps" placeholder="Number Of Employees" formControlName="noOfEmps">
                         <span class="help-block" *ngIf="(leverForm.get('noOfEmps').touched || 
                                                          leverForm.get('noOfEmps').dirty) && 
                                                          leverForm.get('noOfEmps').errors">
@@ -68,7 +81,7 @@
 
                     <div class="form-group">
                         <label for="noOfEmps2">Number Of Out of State Employees</label>
-                        <input type="number" class="form-control" id="noOfEmps2" aria-describedby="noOfEmps2" placeholder="Number Of Out of State Employees" formControlName="noOfEmps2">
+                        <input onkeypress="return event.charCode >= 48" type="number" min="0" step="1" class="form-control" id="noOfEmps2" aria-describedby="noOfEmps2" placeholder="Number Of Out of State Employees" formControlName="noOfEmps2">
                         <span class="help-block" *ngIf="(leverForm.get('noOfEmps2').touched || 
                                                          leverForm.get('noOfEmps2').dirty) && 
                                                          leverForm.get('noOfEmps2').errors">
@@ -86,12 +99,11 @@
             <div class="col-sm-4">
                 <div class="form-group" *ngIf="isSubmitted">
                     <label for="typeOfPlan">Available Plans</label>
-                    <select class="form-control" id="availPlan" formControlName="availPlan">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+                    <select class="form-control" id="availPlan">
+      <option *ngFor="let plan of plans">
+          {{plan}}
+      </option>
+     
     </select>
                 </div>
             </div>
