@@ -1,0 +1,107 @@
+<div [@routerTransition]>
+    <h2 class="text-muted container">Lever Selection</h2>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-5">
+                <form novalidate (ngSubmit)="save()" [formGroup]="leverForm">
+                    <div class="form-group">
+                        <label for="efDate">Effective Date</label>
+                        <input type="date" class="form-control" id="efDate" aria-describedby="efDate" placeholder="Enter Effective Date" formControlName="dateEffective">
+                        <small id="effectiveDateHelp" class="form-text text-muted">help block for effective date.</small>
+                        <span class="help-block" *ngIf="(leverForm.get('dateEffective').touched || 
+                                                         leverForm.get('dateEffective').dirty) && 
+                                                         leverForm.get('dateEffective').errors">
+                            <span *ngIf="leverForm.get('dateEffective').errors.required">
+                                Please enter your effective date name.
+                            </span>
+                        </span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="typeOfPlan">Type of Plan</label>
+                        <select class="form-control" id="typeOfPlan" formControlName="typeOfPlan">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+                        <span class="help-block" *ngIf="(leverForm.get('typeOfPlan').touched || 
+                                                         leverForm.get('typeOfPlan').dirty) && 
+                                                         leverForm.get('typeOfPlan').errors">
+                            <span *ngIf="leverForm.get('typeOfPlan').errors.required">
+                                Please select type of plan.
+                            </span>
+                        </span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="zipCode">ZipCode</label>
+                        <input type="number" class="form-control" id="zipCode" aria-describedby="zipCode" placeholder="Zip Code" formControlName="zipCode">
+                        <span class="help-block" *ngIf="(leverForm.get('zipCode').touched || 
+                                                         leverForm.get('zipCode').dirty) && 
+                                                         leverForm.get('zipCode').errors">
+                            <span *ngIf="leverForm.get('zipCode').errors.required">
+                                Please enter your zip code name.
+                            </span>
+
+                        </span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="noOfEmps">Number Of Employees</label>
+                        <input type="number" class="form-control" id="noOfEmps" aria-describedby="noOfEmps" placeholder="Number Of Employees" formControlName="noOfEmps">
+                        <span class="help-block" *ngIf="(leverForm.get('noOfEmps').touched || 
+                                                         leverForm.get('noOfEmps').dirty) && 
+                                                         leverForm.get('noOfEmps').errors">
+                            <span *ngIf="leverForm.get('noOfEmps').errors.required">
+                                Please enter number of employees.
+                            </span>
+
+                        </span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="noOfEmps2">Number Of Out of State Employees</label>
+                        <input type="number" class="form-control" id="noOfEmps2" aria-describedby="noOfEmps2" placeholder="Number Of Out of State Employees" formControlName="noOfEmps2">
+                        <span class="help-block" *ngIf="(leverForm.get('noOfEmps2').touched || 
+                                                         leverForm.get('noOfEmps2').dirty) && 
+                                                         leverForm.get('noOfEmps2').errors">
+                            <span *ngIf="leverForm.get('noOfEmps2').errors.required">
+                                Please enter number of out of state employees.
+                            </span>
+
+                        </span>
+                    </div>
+
+                    <button type="submit" [disabled]="!leverForm.valid" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-4">
+                <div class="form-group" *ngIf="isSubmitted">
+                    <label for="typeOfPlan">Available Plans</label>
+                    <select class="form-control" id="availPlan" formControlName="availPlan">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+</div>
