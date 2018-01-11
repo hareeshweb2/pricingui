@@ -101,7 +101,7 @@
                     <label for="typeOfPlan">Available Plans</label>
                     <select class="form-control" id="availPlan">
       <option *ngFor="let plan of plans">
-          {{plan}}
+          {{leversResponse.levers.plan.elements[plan].value}}
       </option>
      
     </select>

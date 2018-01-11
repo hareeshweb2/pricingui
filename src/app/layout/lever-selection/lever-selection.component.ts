@@ -16,10 +16,10 @@ export class LeverSelectionComponent implements OnInit {
   leverForm: FormGroup;
   isSubmitted: boolean = false;
   planTypes = [
-    { id: "Exchange Certified", value: "Exchange certified" },
-    { id: "KAIG Partnership", value: "KAIG Partnership" },
-    { id: "Traditional", value: "Traditional" },
-    { id: "Traditional offered with Optima Health Plans", value: "Traditional offered with Optima Health Plans" }];
+    { id: "exchange Certified", value: "exchange certified" },
+    { id: "kAIG Partnership", value: "eAIG Partnership" },
+    { id: "traditional", value: "traditional" },
+    { id: "traditional offered with Optima Health Plans", value: "traditional offered with Optima Health Plans" }];
   naics = [
     { id: "4444110", value: "4444110" },
     { id: "4444130", value: "4444130" },
@@ -45,66 +45,69 @@ export class LeverSelectionComponent implements OnInit {
   }
   submit() {
     console.log('Saved: ' + JSON.stringify(this.leverForm.value));
+
     this.isSubmitted = true;
 
     let leversReq = {
       "healthcareCompanyId": 1,
       "subcompanyId": 1,
-      "effectiveDate": "2018-01-01",
-      "zipCode": "24012",
-      "numberOfEmployees": 10,
-      "typeOfPlan": "traditional",
+      "effectiveDate": this.leverForm.value.dateEffective,
+      "zipCode": this.leverForm.value.zipCode,
+      "numberOfEmployees": this.leverForm.value.noOfEmps,
+      "typeOfPlan": this.leverForm.value.typeOfPlan,
       "plan": {
         "levers": {
           "naics": {
             "id": "naics",
             "name": "naics",
-            "elements": {
-              "4444110": {
-                "id": "4444110",
-                "leverId": "4444110"
-              }
-            }
+            "elements": {}
           }
         }
       }
     };
 
+    var naicField = this.leverForm.value.nics;
+    leversReq.plan.levers.naics.elements[naicField] = {
+      "id": this.leverForm.value.nics,
+      "leverId": this.leverForm.value.nics
+    }
 
-    // this.leversResponse = {
-    //   "levers":
-    //     {
-    //       "plan":
-    //         {
-    //           "id": "plan", "name": "plan", "elements":
-    //             {
-    //               "PASSIVE": { "id": "PASSIVE", "factor": 1, "leverId": "plan", "value": "Passive" },
-    //               "PREMIERVOL": { "id": "PREMIERVOL", "factor": 1, "leverId": "plan", "value": "Premier, Voluntary" },
-    //               "PASSIVEVOL": { "id": "PASSIVEVOL", "factor": 1, "leverId": "plan", "value": "Passive, Voluntary" },
-    //               "CP140": { "id": "CP140", "factor": 1, "leverId": "plan", "value": "CP140" },
-    //               "ACTIVE2": { "id": "ACTIVE2", "factor": 1, "leverId": "plan", "value": "Active - Option 2" },
-    //               "EXCHANGEVOL": { "id": "EXCHANGEVOL", "factor": 1, "leverId": "plan", "value": "Exchange-Certified Family Plan, Voluntary" },
-    //               "ACTIVE2VOL": { "id": "ACTIVE2VOL", "factor": 1, "leverId": "plan", "value": "Active - Option 2, Voluntary" },
-    //               "AXCESS50VOL": { "id": "AXCESS50VOL", "factor": 1, "leverId": "plan", "value": "aXcess 50, Voluntary" },
-    //               "PREMIER": { "id": "PREMIER", "factor": 1, "leverId": "plan", "value": "PREMIER" }
-    //             }
-    //         }
-    //     }
-    // };
+    
 
-    // this.plans = Object.keys(this.leversResponse.levers.plan.elements);
+    this.leversResponse = {
+      "levers":
+        {
+          "plan":
+            {
+              "id": "plan", "name": "plan", "elements":
+                {
+                  "PASSIVE": { "id": "PASSIVE", "factor": 1, "leverId": "plan", "value": "Passive" },
+                  "PREMIERVOL": { "id": "PREMIERVOL", "factor": 1, "leverId": "plan", "value": "Premier, Voluntary" },
+                  "PASSIVEVOL": { "id": "PASSIVEVOL", "factor": 1, "leverId": "plan", "value": "Passive, Voluntary" },
+                  "CP140": { "id": "CP140", "factor": 1, "leverId": "plan", "value": "CP140" },
+                  "ACTIVE2": { "id": "ACTIVE2", "factor": 1, "leverId": "plan", "value": "Active - Option 2" },
+                  "EXCHANGEVOL": { "id": "EXCHANGEVOL", "factor": 1, "leverId": "plan", "value": "Exchange-Certified Family Plan, Voluntary" },
+                  "ACTIVE2VOL": { "id": "ACTIVE2VOL", "factor": 1, "leverId": "plan", "value": "Active - Option 2, Voluntary" },
+                  "AXCESS50VOL": { "id": "AXCESS50VOL", "factor": 1, "leverId": "plan", "value": "aXcess 50, Voluntary" },
+                  "PREMIER": { "id": "PREMIER", "factor": 1, "leverId": "plan", "value": "PREMIER" }
+                }
+            }
+        }
+    };
+
+    this.plans = Object.keys(this.leversResponse.levers.plan.elements);
 
 
-    this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/lever', leversReq).subscribe(
-      data => {
-        this.leversResponse = data;
-        this.plans = Object.keys(this.leversResponse);
-      },
-      error => {
-        console.error("Error submitting post request!");
-        return Observable.throw(error);
-      }
-    );
+    // this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReq).subscribe(
+    //   data => {
+    //     this.leversResponse = data;
+    //     this.plans = Object.keys(this.leversResponse.levers.plan.elements);
+    //   },
+    //   error => {
+    //     console.error("Error submitting post request!");
+    //     return Observable.throw(error);
+    //   }
+    // );
   }
 
 }
