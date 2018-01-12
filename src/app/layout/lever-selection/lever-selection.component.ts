@@ -118,10 +118,11 @@ export class LeverSelectionComponent implements OnInit {
         this.plans = Object.keys(this.leversResponse.levers.plan.elements);
       },
       error => {
-        if (error.message == "Resource not Found")
+       // alert(JSON.stringify(error));
+        if (error.message == "Resource not found")
           alert('Data not found for this search');  
         else  
-        alert('Bad Request');  
+          alert('Data not found for this search, Might be bad request')  
         console.error("Error submitting post request!");
         return Observable.throw(error);
       }
