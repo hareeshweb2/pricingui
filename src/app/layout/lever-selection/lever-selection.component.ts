@@ -11,13 +11,14 @@ import { Observable } from 'rxjs/Observable';
   animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
+  alerts: any;
   plans: string[];
   leversResponse:any;
   leverForm: FormGroup;
   isSubmitted: boolean = false;
   planTypes = [
     { id: "exchange Certified", value: "exchange certified" },
-    { id: "kAIG Partnership", value: "eAIG Partnership" },
+    { id: "kAIG Partnership", value: "KAIG Partnership" },
     { id: "traditional", value: "traditional" },
     { id: "traditional offered with Optima Health Plans", value: "traditional offered with Optima Health Plans" }];
   naics = [
@@ -30,6 +31,7 @@ export class LeverSelectionComponent implements OnInit {
     { id: "0110", value: "0110" },
     { id: "1330", value: "1330" }
   ];
+  
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
@@ -43,6 +45,12 @@ export class LeverSelectionComponent implements OnInit {
 
     });
   }
+
+  public closeAlert(alert: any) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
+
   submit() {
     console.log('Saved: ' + JSON.stringify(this.leverForm.value));
 
@@ -74,40 +82,50 @@ export class LeverSelectionComponent implements OnInit {
 
     
 
-    this.leversResponse = {
-      "levers":
-        {
-          "plan":
-            {
-              "id": "plan", "name": "plan", "elements":
-                {
-                  "PASSIVE": { "id": "PASSIVE", "factor": 1, "leverId": "plan", "value": "Passive" },
-                  "PREMIERVOL": { "id": "PREMIERVOL", "factor": 1, "leverId": "plan", "value": "Premier, Voluntary" },
-                  "PASSIVEVOL": { "id": "PASSIVEVOL", "factor": 1, "leverId": "plan", "value": "Passive, Voluntary" },
-                  "CP140": { "id": "CP140", "factor": 1, "leverId": "plan", "value": "CP140" },
-                  "ACTIVE2": { "id": "ACTIVE2", "factor": 1, "leverId": "plan", "value": "Active - Option 2" },
-                  "EXCHANGEVOL": { "id": "EXCHANGEVOL", "factor": 1, "leverId": "plan", "value": "Exchange-Certified Family Plan, Voluntary" },
-                  "ACTIVE2VOL": { "id": "ACTIVE2VOL", "factor": 1, "leverId": "plan", "value": "Active - Option 2, Voluntary" },
-                  "AXCESS50VOL": { "id": "AXCESS50VOL", "factor": 1, "leverId": "plan", "value": "aXcess 50, Voluntary" },
-                  "PREMIER": { "id": "PREMIER", "factor": 1, "leverId": "plan", "value": "PREMIER" }
-                }
-            }
+    // this.leversResponse = {
+    //   "levers":
+    //     {
+    //       "plan":
+    //         {
+    //           "id": "plan", "name": "plan", "elements":
+    //             {
+    //               "PASSIVE": { "id": "PASSIVE", "factor": 1, "leverId": "plan", "value": "Passive" },
+    //               "PREMIERVOL": { "id": "PREMIERVOL", "factor": 1, "leverId": "plan", "value": "Premier, Voluntary" },
+    //               "PASSIVEVOL": { "id": "PASSIVEVOL", "factor": 1, "leverId": "plan", "value": "Passive, Voluntary" },
+    //               "CP140": { "id": "CP140", "factor": 1, "leverId": "plan", "value": "CP140" },
+    //               "ACTIVE2": { "id": "ACTIVE2", "factor": 1, "leverId": "plan", "value": "Active - Option 2" },
+    //               "EXCHANGEVOL": { "id": "EXCHANGEVOL", "factor": 1, "leverId": "plan", "value": "Exchange-Certified Family Plan, Voluntary" },
+    //               "ACTIVE2VOL": { "id": "ACTIVE2VOL", "factor": 1, "leverId": "plan", "value": "Active - Option 2, Voluntary" },
+    //               "AXCESS50VOL": { "id": "AXCESS50VOL", "factor": 1, "leverId": "plan", "value": "aXcess 50, Voluntary" },
+    //               "PREMIER": { "id": "PREMIER", "factor": 1, "leverId": "plan", "value": "PREMIER" }
+    //             }
+    //         }
+    //     }
+    // };
+
+    // this.plans = Object.keys(this.leversResponse.levers.plan.elements);
+
+
+    this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReq).subscribe(
+      data => {
+        this.leversResponse = data;
+        if (this.leversResponse.message) { 
+          alert("No Plans Found for this selection");
+          this.plans = [];
+          return;
         }
-    };
-
-    this.plans = Object.keys(this.leversResponse.levers.plan.elements);
-
-
-    // this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReq).subscribe(
-    //   data => {
-    //     this.leversResponse = data;
-    //     this.plans = Object.keys(this.leversResponse.levers.plan.elements);
-    //   },
-    //   error => {
-    //     console.error("Error submitting post request!");
-    //     return Observable.throw(error);
-    //   }
-    // );
+        else
+        this.plans = Object.keys(this.leversResponse.levers.plan.elements);
+      },
+      error => {
+        if (error.message == "Resource not Found")
+          alert('Data not found for this search');  
+        else  
+        alert('Bad Request');  
+        console.error("Error submitting post request!");
+        return Observable.throw(error);
+      }
+    );
   }
 
 }
