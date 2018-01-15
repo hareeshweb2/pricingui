@@ -118,7 +118,8 @@ export class LeverSelectionComponent implements OnInit {
         this.plans = Object.keys(this.leversResponse.levers.plan.elements);
       },
       error => {
-       // alert(JSON.stringify(error));
+        this.plans = [];
+        console.log("Response ERROR: "+JSON.stringify(error));
         if (error.message == "Resource not found")
           alert('Data not found for this search');  
         else  
