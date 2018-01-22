@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
@@ -11,14 +12,18 @@ import { Observable } from 'rxjs/Observable';
   animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
+  leversDataAfterPlanSelection: any;
+  leversAfterPlan: any;
   alerts: any;
   plans: string[];
-  leversResponse:any;
+  leversResponse: any;
+  updatedFormatOfLevers: any=[];
   leverForm: FormGroup;
   isSubmitted: boolean = false;
+  selectedPlan;
   planTypes = [
     { id: "exchange Certified", value: "exchange certified" },
-    { id: "kAIG Partnership", value: "KAIG Partnership" },
+    { id: "KAIG Partnership", value: "KAIG Partnership" },
     { id: "traditional", value: "traditional" },
     { id: "traditional offered with Optima Health Plans", value: "traditional offered with Optima Health Plans" }];
   naics = [
@@ -31,7 +36,7 @@ export class LeverSelectionComponent implements OnInit {
     { id: "0110", value: "0110" },
     { id: "1330", value: "1330" }
   ];
-  
+
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
@@ -40,8 +45,9 @@ export class LeverSelectionComponent implements OnInit {
       typeOfPlan: ['', [Validators.required]],
       nics: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
-      noOfEmps: ['', [Validators.required]],
-      noOfEmps2: ['', [Validators.required]]
+      noOfEmps: ['', [Validators.required]]
+      //,
+      // noOfEmps2: ['', [Validators.required]]
 
     });
   }
@@ -56,31 +62,44 @@ export class LeverSelectionComponent implements OnInit {
 
     this.isSubmitted = true;
 
-    let leversReq = {
-      "healthcareCompanyId": 1,
-      "subcompanyId": 1,
-      "effectiveDate": this.leverForm.value.dateEffective,
-      "zipCode": this.leverForm.value.zipCode,
-      "numberOfEmployees": this.leverForm.value.noOfEmps,
-      "typeOfPlan": this.leverForm.value.typeOfPlan,
-      "plan": {
-        "levers": {
+    // let leversReqOld = {
+    //   "healthcareCompanyId": 1,
+    //   "subcompanyId": 1,
+    //   "effectiveDate": this.leverForm.value.dateEffective,
+    //   "zipCode": this.leverForm.value.zipCode,
+    //   "numberOfEmployees": this.leverForm.value.noOfEmps,
+    //   "typeOfPlan": this.leverForm.value.typeOfPlan,
+    //   "plan": {
+    //     "levers": {
+    //       "naics": {
+    //         "id": "naics",
+    //         "name": "naics",
+    //         "elements": {}
+    //       }
+    //     }
+    //   }
+    // };
+
+
+    let leversReq =
+      {
+        "healthcareCompanyId": 1,
+        "subcompanyId": 1,
+        "effectiveDate": this.leverForm.value.dateEffective,
+        "zipCode": this.leverForm.value.zipCode,
+        "numberOfEmployees": this.leverForm.value.noOfEmps,
+        "typeOfPlan": this.leverForm.value.typeOfPlan,
+        "selectedLevers": {
           "naics": {
             "id": "naics",
             "name": "naics",
-            "elements": {}
+            "selectedElement": {
+              "id": this.leverForm.value.nics,
+              "leverId": "naics"
+            }
           }
         }
       }
-    };
-
-    var naicField = this.leverForm.value.nics;
-    leversReq.plan.levers.naics.elements[naicField] = {
-      "id": this.leverForm.value.nics,
-      "leverId": this.leverForm.value.nics
-    }
-
-    
 
     // this.leversResponse = {
     //   "levers":
@@ -109,25 +128,312 @@ export class LeverSelectionComponent implements OnInit {
     this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReq).subscribe(
       data => {
         this.leversResponse = data;
-        if (this.leversResponse.message) { 
+        if (this.leversResponse.message) {
           alert("No Plans Found for this selection");
           this.plans = [];
           return;
         }
         else
-        this.plans = Object.keys(this.leversResponse.levers.plan.elements);
+          this.plans = Object.keys(this.leversResponse.levers.plan.elements);
       },
       error => {
         this.plans = [];
-        console.log("Response ERROR: "+JSON.stringify(error));
+        console.log("Response ERROR: " + JSON.stringify(error));
         if (error.message == "Resource not found")
-          alert('Data not found for this search');  
-        else  
-          alert('Data not found for this search, Might be bad request')  
+          alert('Data not found for this search');
+        else
+          alert('Data not found for this search, Might be bad request')
         console.error("Error submitting post request!");
         return Observable.throw(error);
       }
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+  //after plan selection
+
+  getResponseForPlan() {
+    console.log('Saved: ' + JSON.stringify(this.leverForm.value));
+
+    this.isSubmitted = true;
+
+
+    let leversReqWithPlan = {
+      "healthcareCompanyId": 1,
+      "subcompanyId": 1,
+      "effectiveDate": this.leverForm.value.dateEffective,
+      "zipCode": this.leverForm.value.zipCode,
+      "numberOfEmployees": this.leverForm.value.noOfEmps,
+      "typeOfPlan": this.leverForm.value.typeOfPlan,
+      "selectedLevers": {
+        "naics": {
+          "id": "naics",
+          "name": "naics",
+          "selectedElement": {
+            "id": this.leverForm.value.nics,
+            "leverId": "naics"
+          }
+        },
+        "plan": {
+          "id": "plan",
+          "name": "plan",
+          "selectedElement": {
+            "id": this.selectedPlan,
+            "leverId": "plan"
+          }
+        }
+      }
+    };
+
+
+
+
+
+
+
+
+    // let leversReq = {
+    //   "healthcareCompanyId": 1,
+    //   "subcompanyId": 1,
+    //   "effectiveDate": this.leverForm.value.dateEffective,
+    //   "zipCode": this.leverForm.value.zipCode,
+    //   "numberOfEmployees": this.leverForm.value.noOfEmps,
+    //   "typeOfPlan": this.leverForm.value.typeOfPlan,
+    //   "plan": {
+    //     "levers": {
+    //       "naics": {
+    //         "id": "naics",
+    //         "name": "naics",
+    //         "elements": {}
+    //       }
+    //     }
+    //   }
+    // };
+
+    // var naicField = this.leverForm.value.nics;
+    // leversReq.plan.levers.naics.elements[naicField] = {
+    //   "id": this.leverForm.value.nics,
+    //   "leverId": this.leverForm.value.nics
+    // }
+
+
+
+    // this.leversDataAfterPlanSelection = {
+    //   "levers": {
+    //     "annualmax": {
+    //       "id": "annualmax",
+    //       "name": "annual maximum",
+    //       "elements": {
+    //         "max2k": {
+    //           "factor": 1.4,
+    //           "leverId": "annualmax",
+    //           "id": "max2k",
+    //           "value": 2000
+    //         },
+    //         "max3k": {
+    //           "factor": 1.6,
+    //           "leverId": "annualmax",
+    //           "id": "max3k",
+    //           "value": 3000
+    //         },
+    //         "max1k": {
+    //           "factor": 1.1,
+    //           "leverId": "annualmax",
+    //           "id": "max1k",
+    //           "value": 1000
+    //         },
+    //         "max5k": {
+    //           "factor": 1.7,
+    //           "leverId": "annualmax",
+    //           "id": "max5k",
+    //           "value": 5000
+    //         },
+    //         "max1500": {
+    //           "factor": 1.3,
+    //           "leverId": "annualmax",
+    //           "id": "max1500",
+    //           "value": 1500
+    //         },
+    //         "max2500": {
+    //           "factor": 1.5,
+    //           "leverId": "annualmax",
+    //           "id": "max2500",
+    //           "value": 2500
+    //         },
+    //         "max1250": {
+    //           "factor": 1.2,
+    //           "leverId": "annualmax",
+    //           "id": "max1250",
+    //           "value": 1250
+    //         }
+    //       },
+    //       "level": "plan",
+    //       "selectedElement": null,
+    //       "isTerminal": false
+    //     },
+    //     "fillingsback": {
+    //       "id": "fillingsback",
+    //       "name": "composite fillings - back",
+    //       "elements": {
+    //         "backfalse": {
+    //           "factor": 1.2,
+    //           "leverId": "fillingsback",
+    //           "id": "backfalse",
+    //           "value": false
+    //         },
+    //         "backtrue": {
+    //           "factor": 1.1,
+    //           "leverId": "fillingsback",
+    //           "id": "backtrue",
+    //           "value": true
+    //         }
+    //       },
+    //       "level": "plan",
+    //       "selectedElement": null,
+    //       "isTerminal": false
+    //     },
+    //     "eposurgery": {
+    //       "id": "eposurgery",
+    //       "name": "Endodontic / Periodontic / Oral Surgery",
+    //       "elements": {
+    //         "typeII": {
+    //           "factor": 1.1,
+    //           "leverId": "eposurgery",
+    //           "id": "typeII",
+    //           "value": "Type II - Basic Dental Care"
+    //         },
+    //         "typeIII": {
+    //           "factor": 1.2,
+    //           "leverId": "eposurgery",
+    //           "id": "typeIII",
+    //           "value": "Type III - Major Dental Care"
+    //         }
+    //       },
+    //       "level": "plan",
+    //       "selectedElement": null,
+    //       "isTerminal": false
+    //     },
+    //     "deductible": {
+    //       "id": "deductible",
+    //       "name": "deductible",
+    //       "elements": {
+    //         "ded0": {
+    //           "factor": 1.1,
+    //           "leverId": "deductible",
+    //           "id": "ded0",
+    //           "value": 0
+    //         },
+    //         "ded25": {
+    //           "factor": 1.2,
+    //           "leverId": "deductible",
+    //           "id": "ded25",
+    //           "value": 25
+    //         },
+    //         "ded50": {
+    //           "factor": 1.3,
+    //           "leverId": "deductible",
+    //           "id": "ded50",
+    //           "value": 50
+    //         }
+    //       },
+    //       "level": "plan",
+    //       "selectedElement": null,
+    //       "isTerminal": false
+    //     }
+    //   },
+    //   "rates": null
+    // }
+
+//     this.leversAfterPlan = Object.keys(this.leversDataAfterPlanSelection.levers);
+
+//     this.leversAfterPlan.forEach(element => {
+//       let lever: any = {};
+//       lever.id = this.leversDataAfterPlanSelection.levers[element].id;
+//       lever.name = this.leversDataAfterPlanSelection.levers[element].name;
+//       lever.elements = [];
+
+//       let keysElements = Object.keys(this.leversDataAfterPlanSelection.levers[element].elements);
+//       keysElements.forEach(elm => {
+//         let drpdwn: any = {};
+//         drpdwn.factor = this.leversDataAfterPlanSelection.levers[element].elements[elm].factor;
+//         drpdwn.leverId = this.leversDataAfterPlanSelection.levers[element].elements[elm].leverId;
+//         drpdwn.id = this.leversDataAfterPlanSelection.levers[element].elements[elm].id;
+//         drpdwn.value = this.leversDataAfterPlanSelection.levers[element].elements[elm].value;
+//         lever.elements.push(drpdwn);
+// });
+//       this.updatedFormatOfLevers.push(lever);
+// });
+ 
+    this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReqWithPlan).subscribe(
+      data => {
+        this.leversDataAfterPlanSelection = data;
+        if (this.leversDataAfterPlanSelection.message) {
+          alert("No Plans Found for this selection");
+          this.updatedFormatOfLevers = [];
+          return;
+        }
+        else { 
+
+
+
+          this.leversAfterPlan = Object.keys(this.leversDataAfterPlanSelection.levers);
+
+          this.leversAfterPlan.forEach(element => {
+            let lever: any = {};
+            lever.id = this.leversDataAfterPlanSelection.levers[element].id;
+            lever.name = this.leversDataAfterPlanSelection.levers[element].name;
+            lever.elements = [];
+
+            let keysElements = Object.keys(this.leversDataAfterPlanSelection.levers[element].elements);
+            keysElements.forEach(elm => {
+              let drpdwn: any = {};
+              drpdwn.factor = this.leversDataAfterPlanSelection.levers[element].elements[elm].factor;
+              drpdwn.leverId = this.leversDataAfterPlanSelection.levers[element].elements[elm].leverId;
+              drpdwn.id = this.leversDataAfterPlanSelection.levers[element].elements[elm].id;
+              drpdwn.value = this.leversDataAfterPlanSelection.levers[element].elements[elm].value;
+              lever.elements.push(drpdwn);
+            });
+            this.updatedFormatOfLevers.push(lever);
+          });
+
+
+
+
+
+
+
+        }
+      },
+      error => {
+        this.plans = [];
+        console.log("Response ERROR: " + JSON.stringify(error));
+        if (error.message == "Resource not found")
+          alert('Data not found for this search');
+        else
+          alert('Data not found for this search, Might be bad request')
+        console.error("Error submitting post request!");
+        return Observable.throw(error);
+      }
+    );
+  }
+
+
+
+
+
+
+
+
+
+
 
 }

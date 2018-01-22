@@ -7,6 +7,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import { AuthGuard } from './shared';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,FormsModule
     ],
     declarations: [AppComponent],
     providers: [AuthGuard],
