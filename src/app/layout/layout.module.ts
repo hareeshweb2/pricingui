@@ -1,3 +1,4 @@
+import { SharedPipesModule } from './../shared/pipes/shared-pipes.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,6 +12,7 @@ import { LeverSelectionComponent } from './lever-selection/lever-selection.compo
 @NgModule({
     imports: [
         CommonModule,
+        SharedPipesModule,
         LayoutRoutingModule, ReactiveFormsModule, FormsModule,
         NgbDropdownModule.forRoot()
     ],

@@ -12,16 +12,20 @@ import { Observable } from 'rxjs/Observable';
   animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
+  leversDataAfterAllLeversSelected: any;
   leversDataAfterPlanSelection: any;
   leversAfterPlan: any;
+  leversAfterAllLeversSelected: any;
   alerts: any;
   plans: string[];
   leversResponse: any;
-  updatedFormatOfLevers: any=[];
+  updatedFormatOfLevers: any = [];
+  updatedFormatOfLeversAfterAllLeversSelected: any = [];
   leverForm: FormGroup;
   isSubmitted: boolean = false;
   selectedPlan;
   leversReqWithAllSelectedLevers: any;
+  networdIds: any = [];
   planTypes = [
     { id: "exchange Certified", value: "exchange certified" },
     { id: "KAIG Partnership", value: "KAIG Partnership" },
@@ -152,7 +156,7 @@ export class LeverSelectionComponent implements OnInit {
         return Observable.throw(error);
       }
     );
-
+//server end
 
 
   }
@@ -202,6 +206,8 @@ export class LeverSelectionComponent implements OnInit {
       }
     };
 
+
+//client start
 
 //     this.leversDataAfterPlanSelection = {
 //       "levers": {
@@ -399,9 +405,12 @@ export class LeverSelectionComponent implements OnInit {
         return Observable.throw(error);
       }
     );
+//server end 
+
+
   }
 
-//server end 
+
 
 //end after plan selection
 
@@ -413,7 +422,8 @@ export class LeverSelectionComponent implements OnInit {
 
 //call after all levers selected start
   getResponseAfterAllLeversSelected() { 
-
+    this.updatedFormatOfLeversAfterAllLeversSelected = [];
+    this.networdIds = [];
     let leversReqWithAllSelectedLevers = {
       "healthcareCompanyId": 1,
       "subcompanyId": 1,
@@ -457,6 +467,99 @@ export class LeverSelectionComponent implements OnInit {
     });
 
     console.log(leversReqWithAllSelectedLevers);
+    console.log(JSON.stringify(leversReqWithAllSelectedLevers));
+
+
+//client start
+    // this.leversDataAfterAllLeversSelected = { "levers": { "1-coinsurancetype1ppo": { "id": "1-coinsurancetype1ppo", "name": "Diagnostic and Preventative Care", "elements": { "cippo100typeI": { "factor": 1.2, "leverId": "1-coinsurancetype1ppo", "id": "cippo100typeI", "value": 100 } }, "networkId": "PPO", "level": "typeI", "selectedElement": null, "isTerminal": false }, "1-coinsurancetype2ppo": { "id": "1-coinsurancetype2ppo", "name": "Basic Dental Care", "elements": { "cippo80typeII": { "factor": 1.2, "leverId": "1-coinsurancetype2ppo", "id": "cippo80typeII", "value": 80 } }, "networkId": "PPO", "level": "typeII", "selectedElement": null, "isTerminal": false }, "1-coinsurancetype3ppo": { "id": "1-coinsurancetype3ppo", "name": "Major Dental Care", "elements": { "cippo50typeIII": { "factor": 1.3, "leverId": "1-coinsurancetype3ppo", "id": "cippo50typeIII", "value": 50 } }, "networkId": "PPO", "level": "typeIII", "selectedElement": null, "isTerminal": false }, "1-coinsurancetype4ppo": { "id": "1-coinsurancetype4ppo", "name": "Orthodontic Benefits", "elements": { "cippo50typeIV": { "factor": 1.1, "leverId": "1-coinsurancetype4ppo", "id": "cippo50typeIV", "value": 50 } }, "networkId": "PPO", "level": "typeIV", "selectedElement": null, "isTerminal": false }, "2-coinsurancetype1premier": { "id": "2-coinsurancetype1premier", "name": "Diagnostic and Preventative Care", "elements": { "cipremier90typeI": { "factor": 1.2, "leverId": "2-coinsurancetype1premier", "id": "cipremier90typeI", "value": 90 } }, "networkId": "PREMIER", "level": "typeI", "selectedElement": null, "isTerminal": false }, "2-coinsurancetype2premier": { "id": "2-coinsurancetype2premier", "name": "Basic Dental Care", "elements": { "cipremier80typeII": { "factor": 1.1, "leverId": "2-coinsurancetype2premier", "id": "cipremier80typeII", "value": 80 }, "cipremier70typeII": { "factor": 1.2, "leverId": "2-coinsurancetype2premier", "id": "cipremier70typeII", "value": 70 } }, "networkId": "PREMIER", "level": "typeII", "selectedElement": null, "isTerminal": false }, "2-coinsurancetype3premier": { "id": "2-coinsurancetype3premier", "name": "Major Dental Care", "elements": { "cipremier50typeIII": { "factor": 1.1, "leverId": "2-coinsurancetype3premier", "id": "cipremier50typeIII", "value": 50 } }, "networkId": "PREMIER", "level": "typeIII", "selectedElement": null, "isTerminal": false }, "2-coinsurancetype4premier": { "id": "2-coinsurancetype4premier", "name": "Orthodontic Benefits", "elements": { "cipremier50typeIV": { "factor": 1.1, "leverId": "2-coinsurancetype4premier", "id": "cipremier50typeIV", "value": 50 } }, "networkId": "PREMIER", "level": "typeIV", "selectedElement": null, "isTerminal": false }, "3-coinsurancetype1oon": { "id": "3-coinsurancetype1oon", "name": "Diagnostic and Preventative Care", "elements": { "cioon90typeI": { "factor": 1.2, "leverId": "3-coinsurancetype1oon", "id": "cioon90typeI", "value": 90 } }, "networkId": "OON", "level": "typeI", "selectedElement": null, "isTerminal": false }, "3-coinsurancetype2oon": { "id": "3-coinsurancetype2oon", "name": "Basic Dental Care", "elements": { "cioon70typeII": { "factor": 1.2, "leverId": "3-coinsurancetype2oon", "id": "cioon70typeII", "value": 70 } }, "networkId": "OON", "level": "typeII", "selectedElement": null, "isTerminal": false }, "3-coinsurancetype3oon": { "id": "3-coinsurancetype3oon", "name": "Major Dental Care", "elements": { "cioon50typeIII": { "factor": 1.1, "leverId": "3-coinsurancetype3oon", "id": "cioon50typeIII", "value": 50 } }, "networkId": "OON", "level": "typeIII", "selectedElement": null, "isTerminal": false }, "3-coinsurancetype4oon": { "id": "3-coinsurancetype4oon", "name": "Orthodontic Benefits", "elements": { "cioon50typeIV": { "factor": 1.1, "leverId": "3-coinsurancetype4oon", "id": "cioon50typeIV", "value": 50 } }, "networkId": "OON", "level": "typeIV", "selectedElement": null, "isTerminal": false } }, "rates": null };
+    
+    // this.leversAfterAllLeversSelected = Object.keys(this.leversDataAfterAllLeversSelected.levers);
+
+    // this.leversAfterAllLeversSelected.forEach(element => {
+    //   let lever: any = {};
+    //   lever.id = this.leversDataAfterAllLeversSelected.levers[element].id;
+    //   lever.name = this.leversDataAfterAllLeversSelected.levers[element].name;
+    //   lever.networkId = this.leversDataAfterAllLeversSelected.levers[element].networkId;
+    //   if (!this.networdIds.includes(lever.networkId))
+    //   this.networdIds.push(lever.networkId);
+    //   lever.level = this.leversDataAfterAllLeversSelected.levers[element].level;
+    //   lever.selectedElement = this.leversDataAfterAllLeversSelected.levers[element].selectedElement;
+    //   lever.isTerminal = this.leversDataAfterAllLeversSelected.levers[element].isTerminal;
+    //   lever.elements = [];
+
+    //   let keysElements = Object.keys(this.leversDataAfterAllLeversSelected.levers[element].elements);
+    //   keysElements.forEach(elm => {
+    //     let drpdwn: any = {};
+    //     drpdwn.factor = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].factor;
+    //     drpdwn.leverId = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].leverId;
+    //     drpdwn.id = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].id;
+    //     drpdwn.value = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].value;
+    //     lever.elements.push(drpdwn);
+    //   });
+    //   this.updatedFormatOfLeversAfterAllLeversSelected.push(lever);
+    // });
+
+    //client end
+
+
+
+    //server start    
+    this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReqWithAllSelectedLevers).subscribe(
+      data => {
+        this.leversDataAfterAllLeversSelected = data;
+        console.log(this.leversDataAfterAllLeversSelected);
+        console.log(JSON.stringify(this.leversDataAfterAllLeversSelected));
+        if (this.leversDataAfterAllLeversSelected.message) {
+          alert("No Data Found for this selection");
+          return;
+        }
+        else {
+this.leversAfterAllLeversSelected = Object.keys(this.leversDataAfterAllLeversSelected.levers);
+
+    this.leversAfterAllLeversSelected.forEach(element => {
+      let lever: any = {};
+      lever.id = this.leversDataAfterAllLeversSelected.levers[element].id;
+      lever.name = this.leversDataAfterAllLeversSelected.levers[element].name;
+      lever.networkId = this.leversDataAfterAllLeversSelected.levers[element].networkId;
+      if (!this.networdIds.includes(lever.networkId))
+      this.networdIds.push(lever.networkId);
+      lever.level = this.leversDataAfterAllLeversSelected.levers[element].level;
+      lever.selectedElement = this.leversDataAfterAllLeversSelected.levers[element].selectedElement;
+      lever.isTerminal = this.leversDataAfterAllLeversSelected.levers[element].isTerminal;
+      lever.elements = [];
+
+      let keysElements = Object.keys(this.leversDataAfterAllLeversSelected.levers[element].elements);
+      keysElements.forEach(elm => {
+        let drpdwn: any = {};
+        drpdwn.factor = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].factor;
+        drpdwn.leverId = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].leverId;
+        drpdwn.id = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].id;
+        drpdwn.value = this.leversDataAfterAllLeversSelected.levers[element].elements[elm].value;
+        lever.elements.push(drpdwn);
+      });
+      this.updatedFormatOfLeversAfterAllLeversSelected.push(lever);
+    });
+
+
+        }
+      },
+      error => {
+      
+        console.log("Response ERROR: " + JSON.stringify(error));
+        if (error.message == "Resource not found")
+          alert('Data not found for this search');
+        else
+          alert('Data not found for this search, Might be bad request')
+        console.error("Error submitting post request!");
+        return Observable.throw(error);
+      }
+    );
+
+    //server end
+
+
+
+
 
 
   }

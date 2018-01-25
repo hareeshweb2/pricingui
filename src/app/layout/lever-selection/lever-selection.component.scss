@@ -1,3 +1,25 @@
 .help-block {
     color: red;
 }
+
+.network-panel select.form-control {
+    width: 35%;
+    display: inline-block;
+}
+
+.network-name {
+    font-weight: bold;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.network-panel {
+    background: #e8e8e8;
+    padding: 6px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.network-panel span {
+    color: blue;
+}

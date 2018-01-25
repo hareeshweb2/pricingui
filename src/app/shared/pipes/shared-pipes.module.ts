@@ -1,3 +1,4 @@
+import { FilterPipe } from './filter.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -5,6 +6,6 @@ import { CommonModule } from '@angular/common';
     imports: [
         CommonModule
     ],
-    declarations: []
+    declarations: [FilterPipe]
 })
 export class SharedPipesModule { }
