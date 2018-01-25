@@ -117,7 +117,7 @@
                 <section *ngIf="selectedPlan">
                     <div class="form-group" *ngFor="let lever of updatedFormatOfLevers">
                         <label for="typeOfPlan">{{lever.name}}</label>
-                        <select class="form-control">
+                        <select class="form-control" [(ngModel)]="lever.selectedValue">
                             <option>select</option>
       <option *ngFor="let element of lever.elements" [value]="element.id">
           {{element.value}}
@@ -137,3 +137,6 @@
 
 
 </div>
+
+<input type="button" value="clickkk" (click)="getResponseAfterAllLeversSelected()">
+<hr> {{updatedFormatOfLevers | json}}

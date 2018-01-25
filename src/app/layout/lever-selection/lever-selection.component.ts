@@ -21,6 +21,7 @@ export class LeverSelectionComponent implements OnInit {
   leverForm: FormGroup;
   isSubmitted: boolean = false;
   selectedPlan;
+  leversReqWithAllSelectedLevers: any;
   planTypes = [
     { id: "exchange Certified", value: "exchange certified" },
     { id: "KAIG Partnership", value: "KAIG Partnership" },
@@ -101,6 +102,8 @@ export class LeverSelectionComponent implements OnInit {
         }
       }
 
+    
+    //client
     // this.leversResponse = {
     //   "levers":
     //     {
@@ -123,8 +126,10 @@ export class LeverSelectionComponent implements OnInit {
     // };
 
     // this.plans = Object.keys(this.leversResponse.levers.plan.elements);
+//client end
 
 
+//server
     this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReq).subscribe(
       data => {
         this.leversResponse = data;
@@ -147,6 +152,9 @@ export class LeverSelectionComponent implements OnInit {
         return Observable.throw(error);
       }
     );
+
+
+
   }
 
 
@@ -162,8 +170,8 @@ export class LeverSelectionComponent implements OnInit {
   //after plan selection
 
   getResponseForPlan() {
-    console.log('Saved: ' + JSON.stringify(this.leverForm.value));
-
+    console.log('after plan req object: ' + JSON.stringify(this.leverForm.value));
+    this.updatedFormatOfLevers = [];
     this.isSubmitted = true;
 
 
@@ -195,163 +203,131 @@ export class LeverSelectionComponent implements OnInit {
     };
 
 
-
-
-
-
-
-
-    // let leversReq = {
-    //   "healthcareCompanyId": 1,
-    //   "subcompanyId": 1,
-    //   "effectiveDate": this.leverForm.value.dateEffective,
-    //   "zipCode": this.leverForm.value.zipCode,
-    //   "numberOfEmployees": this.leverForm.value.noOfEmps,
-    //   "typeOfPlan": this.leverForm.value.typeOfPlan,
-    //   "plan": {
-    //     "levers": {
-    //       "naics": {
-    //         "id": "naics",
-    //         "name": "naics",
-    //         "elements": {}
-    //       }
-    //     }
-    //   }
-    // };
-
-    // var naicField = this.leverForm.value.nics;
-    // leversReq.plan.levers.naics.elements[naicField] = {
-    //   "id": this.leverForm.value.nics,
-    //   "leverId": this.leverForm.value.nics
-    // }
-
-
-
-    // this.leversDataAfterPlanSelection = {
-    //   "levers": {
-    //     "annualmax": {
-    //       "id": "annualmax",
-    //       "name": "annual maximum",
-    //       "elements": {
-    //         "max2k": {
-    //           "factor": 1.4,
-    //           "leverId": "annualmax",
-    //           "id": "max2k",
-    //           "value": 2000
-    //         },
-    //         "max3k": {
-    //           "factor": 1.6,
-    //           "leverId": "annualmax",
-    //           "id": "max3k",
-    //           "value": 3000
-    //         },
-    //         "max1k": {
-    //           "factor": 1.1,
-    //           "leverId": "annualmax",
-    //           "id": "max1k",
-    //           "value": 1000
-    //         },
-    //         "max5k": {
-    //           "factor": 1.7,
-    //           "leverId": "annualmax",
-    //           "id": "max5k",
-    //           "value": 5000
-    //         },
-    //         "max1500": {
-    //           "factor": 1.3,
-    //           "leverId": "annualmax",
-    //           "id": "max1500",
-    //           "value": 1500
-    //         },
-    //         "max2500": {
-    //           "factor": 1.5,
-    //           "leverId": "annualmax",
-    //           "id": "max2500",
-    //           "value": 2500
-    //         },
-    //         "max1250": {
-    //           "factor": 1.2,
-    //           "leverId": "annualmax",
-    //           "id": "max1250",
-    //           "value": 1250
-    //         }
-    //       },
-    //       "level": "plan",
-    //       "selectedElement": null,
-    //       "isTerminal": false
-    //     },
-    //     "fillingsback": {
-    //       "id": "fillingsback",
-    //       "name": "composite fillings - back",
-    //       "elements": {
-    //         "backfalse": {
-    //           "factor": 1.2,
-    //           "leverId": "fillingsback",
-    //           "id": "backfalse",
-    //           "value": false
-    //         },
-    //         "backtrue": {
-    //           "factor": 1.1,
-    //           "leverId": "fillingsback",
-    //           "id": "backtrue",
-    //           "value": true
-    //         }
-    //       },
-    //       "level": "plan",
-    //       "selectedElement": null,
-    //       "isTerminal": false
-    //     },
-    //     "eposurgery": {
-    //       "id": "eposurgery",
-    //       "name": "Endodontic / Periodontic / Oral Surgery",
-    //       "elements": {
-    //         "typeII": {
-    //           "factor": 1.1,
-    //           "leverId": "eposurgery",
-    //           "id": "typeII",
-    //           "value": "Type II - Basic Dental Care"
-    //         },
-    //         "typeIII": {
-    //           "factor": 1.2,
-    //           "leverId": "eposurgery",
-    //           "id": "typeIII",
-    //           "value": "Type III - Major Dental Care"
-    //         }
-    //       },
-    //       "level": "plan",
-    //       "selectedElement": null,
-    //       "isTerminal": false
-    //     },
-    //     "deductible": {
-    //       "id": "deductible",
-    //       "name": "deductible",
-    //       "elements": {
-    //         "ded0": {
-    //           "factor": 1.1,
-    //           "leverId": "deductible",
-    //           "id": "ded0",
-    //           "value": 0
-    //         },
-    //         "ded25": {
-    //           "factor": 1.2,
-    //           "leverId": "deductible",
-    //           "id": "ded25",
-    //           "value": 25
-    //         },
-    //         "ded50": {
-    //           "factor": 1.3,
-    //           "leverId": "deductible",
-    //           "id": "ded50",
-    //           "value": 50
-    //         }
-    //       },
-    //       "level": "plan",
-    //       "selectedElement": null,
-    //       "isTerminal": false
-    //     }
-    //   },
-    //   "rates": null
-    // }
+//     this.leversDataAfterPlanSelection = {
+//       "levers": {
+//         "annualmax": {
+//           "id": "annualmax",
+//           "name": "annual maximum",
+//           "elements": {
+//             "max2k": {
+//               "factor": 1.4,
+//               "leverId": "annualmax",
+//               "id": "max2k",
+//               "value": 2000
+//             },
+//             "max3k": {
+//               "factor": 1.6,
+//               "leverId": "annualmax",
+//               "id": "max3k",
+//               "value": 3000
+//             },
+//             "max1k": {
+//               "factor": 1.1,
+//               "leverId": "annualmax",
+//               "id": "max1k",
+//               "value": 1000
+//             },
+//             "max5k": {
+//               "factor": 1.7,
+//               "leverId": "annualmax",
+//               "id": "max5k",
+//               "value": 5000
+//             },
+//             "max1500": {
+//               "factor": 1.3,
+//               "leverId": "annualmax",
+//               "id": "max1500",
+//               "value": 1500
+//             },
+//             "max2500": {
+//               "factor": 1.5,
+//               "leverId": "annualmax",
+//               "id": "max2500",
+//               "value": 2500
+//             },
+//             "max1250": {
+//               "factor": 1.2,
+//               "leverId": "annualmax",
+//               "id": "max1250",
+//               "value": 1250
+//             }
+//           },
+//           "level": "plan",
+//           "selectedElement": null,
+//           "isTerminal": false
+//         },
+//         "fillingsback": {
+//           "id": "fillingsback",
+//           "name": "composite fillings - back",
+//           "elements": {
+//             "backfalse": {
+//               "factor": 1.2,
+//               "leverId": "fillingsback",
+//               "id": "backfalse",
+//               "value": false
+//             },
+//             "backtrue": {
+//               "factor": 1.1,
+//               "leverId": "fillingsback",
+//               "id": "backtrue",
+//               "value": true
+//             }
+//           },
+//           "level": "plan",
+//           "selectedElement": null,
+//           "isTerminal": false
+//         },
+//         "eposurgery": {
+//           "id": "eposurgery",
+//           "name": "Endodontic / Periodontic / Oral Surgery",
+//           "elements": {
+//             "typeII": {
+//               "factor": 1.1,
+//               "leverId": "eposurgery",
+//               "id": "typeII",
+//               "value": "Type II - Basic Dental Care"
+//             },
+//             "typeIII": {
+//               "factor": 1.2,
+//               "leverId": "eposurgery",
+//               "id": "typeIII",
+//               "value": "Type III - Major Dental Care"
+//             }
+//           },
+//           "level": "plan",
+//           "selectedElement": null,
+//           "isTerminal": false
+//         },
+//         "deductible": {
+//           "id": "deductible",
+//           "name": "deductible",
+//           "elements": {
+//             "ded0": {
+//               "factor": 1.1,
+//               "leverId": "deductible",
+//               "id": "ded0",
+//               "value": 0
+//             },
+//             "ded25": {
+//               "factor": 1.2,
+//               "leverId": "deductible",
+//               "id": "ded25",
+//               "value": 25
+//             },
+//             "ded50": {
+//               "factor": 1.3,
+//               "leverId": "deductible",
+//               "id": "ded50",
+//               "value": 50
+//             }
+//           },
+//           "level": "plan",
+//           "selectedElement": null,
+//           "isTerminal": false
+//         }
+//       },
+//       "rates": null
+//     }
 
 //     this.leversAfterPlan = Object.keys(this.leversDataAfterPlanSelection.levers);
 
@@ -359,6 +335,7 @@ export class LeverSelectionComponent implements OnInit {
 //       let lever: any = {};
 //       lever.id = this.leversDataAfterPlanSelection.levers[element].id;
 //       lever.name = this.leversDataAfterPlanSelection.levers[element].name;
+//       lever.selectedValue = "";
 //       lever.elements = [];
 
 //       let keysElements = Object.keys(this.leversDataAfterPlanSelection.levers[element].elements);
@@ -371,18 +348,22 @@ export class LeverSelectionComponent implements OnInit {
 //         lever.elements.push(drpdwn);
 // });
 //       this.updatedFormatOfLevers.push(lever);
-// });
+//     });
+
+    //client end
  
+
+
+//server start    
     this.http.post('http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers', leversReqWithPlan).subscribe(
       data => {
         this.leversDataAfterPlanSelection = data;
         if (this.leversDataAfterPlanSelection.message) {
-          alert("No Plans Found for this selection");
-          this.updatedFormatOfLevers = [];
+          alert("No Data Found for this selection");
           return;
         }
         else { 
-
+         
 
 
           this.leversAfterPlan = Object.keys(this.leversDataAfterPlanSelection.levers);
@@ -405,12 +386,6 @@ export class LeverSelectionComponent implements OnInit {
             this.updatedFormatOfLevers.push(lever);
           });
 
-
-
-
-
-
-
         }
       },
       error => {
@@ -426,7 +401,70 @@ export class LeverSelectionComponent implements OnInit {
     );
   }
 
+//server end 
 
+//end after plan selection
+
+
+
+
+
+
+
+//call after all levers selected start
+  getResponseAfterAllLeversSelected() { 
+
+    let leversReqWithAllSelectedLevers = {
+      "healthcareCompanyId": 1,
+      "subcompanyId": 1,
+      "effectiveDate": this.leverForm.value.dateEffective,
+      "zipCode": this.leverForm.value.zipCode,
+      "numberOfEmployees": this.leverForm.value.noOfEmps,
+      "typeOfPlan": this.leverForm.value.typeOfPlan,
+      "selectedLevers": {
+        "naics": {
+          "id": "naics",
+          "name": "naics",
+          "selectedElement": {
+            "id": this.leverForm.value.nics,
+            "leverId": "naics"
+          }
+        },
+        "plan": {
+          "id": "plan",
+          "name": "plan",
+          "selectedElement": {
+            "id": this.selectedPlan,
+            "leverId": "plan"
+          }
+        }
+      }
+    };
+
+ 
+
+    this.updatedFormatOfLevers.forEach(element => {
+      if (element.selectedValue) { 
+        leversReqWithAllSelectedLevers.selectedLevers[element.id] = {
+          "id": element.id,
+          "name": element.name,
+          "selectedElement": {
+            "id": element.selectedValue,
+            "leverId": element.id
+          }
+        }      
+      }
+    });
+
+    console.log(leversReqWithAllSelectedLevers);
+
+
+  }
+
+
+
+  
+//end call after all levers selected  
 
 
 
