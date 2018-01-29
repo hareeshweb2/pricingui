@@ -5,6 +5,6 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [FilterPipe, FilterPipe2]
+    declarations: []
 })
 export class SharedPipesModule {}

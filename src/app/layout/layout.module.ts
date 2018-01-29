@@ -8,6 +8,7 @@ import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LeverSelectionComponent } from './lever-selection/lever-selection.component';
+import { FilterPipe,FilterPipe2 } from '../shared/pipes/filter.pipe';
 
 @NgModule({
     imports: [
@@ -16,6 +17,6 @@ import { LeverSelectionComponent } from './lever-selection/lever-selection.compo
         LayoutRoutingModule, ReactiveFormsModule, FormsModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, LeverSelectionComponent ]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, LeverSelectionComponent,FilterPipe, FilterPipe2 ]
 })
 export class LayoutModule {}
