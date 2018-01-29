@@ -129,43 +129,42 @@
                 <!-- <button style="float:right" type="button" (click)="getResponseAfterAllLeversSelected()">GET</button> -->
 
                 <!-- network level levers -->
-                <section *ngIf="selectedPlan">
+                <section *ngIf="showrates">
 
 
-                    <section *ngFor="let network of networdIds" class="network-panel">
+                    <section *ngFor="let network of networksList" class="network-panel">
                         <div class="network-name">{{network}}</div>
                         <div class="form-group" *ngFor="let lever of updatedFormatOfLeversAfterAllLeversSelected | filter:network">
                             <label for="typeOfPlan">{{lever.name}}</label>
 
-                            <select *ngIf="lever.elements.length>1" class="form-control" [(ngModel)]="lever.selectedElement">
+                            <select *ngIf="lever?.elements?.length>1" class="form-control" [(ngModel)]="lever.selectedElement">
                             <option  value="">select</option>
-      <option *ngFor="let element of lever.elements" [value]="element.id">
+      <option *ngFor="let element of lever?.elements" [value]="element.id">
          &nbsp;{{element.value}}%
       </option>
     </select>
-                            <span *ngIf="lever.elements.length===1">&nbsp;{{lever.elements[0].value}}%  </span>
+                            <span *ngIf="lever?.elements?.length===1">&nbsp;{{lever.elements[0].value}}%  </span>
                         </div>
 
 
                     </section>
 
-                </section>
 
 
 
 
-
+<div class="rats">Ratings</div>
                 <!-- Ratings -->
                 <section *ngIf="selectedPlan">
 
 
-                    <section *ngFor="let network of networdIds" class="network-panel">
+                    <section *ngFor="let network of networksList" class="network-panel">
                         <div class="network-name">{{network}}</div>
                         <div class="form-group" *ngFor="let rate of rates | filterForRates:network">
-                            <label for="typeOfPlan">{{lever.name}}</label>
+                            <label for="">{{rate.tier}}</label>
 
 
-                            <span *ngIf="lever.elements.length===1">&nbsp;{{lever.elements[0].value}}%  </span>
+                            <span>&nbsp;{{rate.amount}}%  </span>
                         </div>
 
 
@@ -173,6 +172,7 @@
 
                 </section>
 
+            </section>
 
             </div>
 

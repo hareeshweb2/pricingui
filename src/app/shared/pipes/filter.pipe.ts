@@ -13,7 +13,7 @@ export class FilterPipe implements PipeTransform {
         // kept, false will be filtered out
         return items.filter(item => {
             if (item.networkId) {
-                return item.networkId.indexOf(filter) !== -1;
+                return item.networkId.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
             } else {
                 return false;
             }
@@ -34,7 +34,7 @@ export class FilterPipe2 implements PipeTransform {
         // kept, false will be filtered out
         return items.filter(item => {
             if (item.network) {
-                item.network.indexOf(filter) !== -1;
+               return item.network.toLowerCase().indexOf(filter.toLowerCase()) !== -1;
             } else {
                 return false;
             }

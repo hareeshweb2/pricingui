@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-
+ 
 @Component({
     selector: "app-lever-selection",
     templateUrl: "./lever-selection.component.html",
@@ -17,6 +17,8 @@ import { Observable } from "rxjs/Observable";
     animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
+    showrates:boolean=false;
+    rates: any;
     leversDataAfterAllLeversSelected: any;
     leversDataAfterPlanSelection: any;
     leversAfterPlan: any;
@@ -49,6 +51,9 @@ export class LeverSelectionComponent implements OnInit {
         { id: "4413", value: "4413" },
         { id: "0110", value: "0110" },
         { id: "1330", value: "1330" }
+    ];
+    networksList=[
+        "Premier","PPO","OON"
     ];
 
     constructor(private fb: FormBuilder, private http: HttpClient) {}
@@ -520,7 +525,9 @@ export class LeverSelectionComponent implements OnInit {
             )
             .subscribe(
                 data => {
+                    this.showrates=true;
                     this.leversDataAfterAllLeversSelected = data;
+                    this.rates=this.leversDataAfterAllLeversSelected.rates;
                     console.log(this.leversDataAfterAllLeversSelected);
                     console.log(
                         JSON.stringify(this.leversDataAfterAllLeversSelected)
