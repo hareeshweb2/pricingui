@@ -134,7 +134,7 @@
 
                     <section *ngFor="let network of networdIds" class="network-panel">
                         <div class="network-name">{{network}}</div>
-                        <div class="form-group" *ngFor="let lever of updatedFormatOfLeversAfterAllLeversSelected">
+                        <div class="form-group" *ngFor="let lever of updatedFormatOfLeversAfterAllLeversSelected | filter:'network'">
                             <label for="typeOfPlan">{{lever.name}}</label>
 
                             <select *ngIf="lever.elements.length>1" class="form-control" [(ngModel)]="lever.selectedElement">
@@ -143,6 +143,28 @@
          &nbsp;{{element.value}}%
       </option>
     </select>
+                            <span *ngIf="lever.elements.length===1">&nbsp;{{lever.elements[0].value}}%  </span>
+                        </div>
+
+
+                    </section>
+
+                </section>
+
+
+
+
+
+                <!-- Ratings -->
+                <section *ngIf="selectedPlan">
+
+
+                    <section *ngFor="let network of networdIds" class="network-panel">
+                        <div class="network-name">{{network}}</div>
+                        <div class="form-group" *ngFor="let rate of rates | filterForRates:'network'">
+                            <label for="typeOfPlan">{{lever.name}}</label>
+
+
                             <span *ngIf="lever.elements.length===1">&nbsp;{{lever.elements[0].value}}%  </span>
                         </div>
 
