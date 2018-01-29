@@ -134,7 +134,7 @@
 
                     <section *ngFor="let network of networdIds" class="network-panel">
                         <div class="network-name">{{network}}</div>
-                        <div class="form-group" *ngFor="let lever of updatedFormatOfLeversAfterAllLeversSelected | filter:'network'">
+                        <div class="form-group" *ngFor="let lever of updatedFormatOfLeversAfterAllLeversSelected | filter:network">
                             <label for="typeOfPlan">{{lever.name}}</label>
 
                             <select *ngIf="lever.elements.length>1" class="form-control" [(ngModel)]="lever.selectedElement">
@@ -161,7 +161,7 @@
 
                     <section *ngFor="let network of networdIds" class="network-panel">
                         <div class="network-name">{{network}}</div>
-                        <div class="form-group" *ngFor="let rate of rates | filterForRates:'network'">
+                        <div class="form-group" *ngFor="let rate of rates | filterForRates:network">
                             <label for="typeOfPlan">{{lever.name}}</label>
 
 
