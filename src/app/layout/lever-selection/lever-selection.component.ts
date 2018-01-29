@@ -101,7 +101,8 @@ export class LeverSelectionComponent implements OnInit {
             "selectedElement": {
               "id": this.leverForm.value.nics,
               "leverId": "naics"
-            }
+            },
+            "isTerminal":false
           }
         }
       }
@@ -179,32 +180,7 @@ export class LeverSelectionComponent implements OnInit {
     this.isSubmitted = true;
 
 
-    let leversReqWithPlan = {
-      "healthcareCompanyId": 1,
-      "subcompanyId": 1,
-      "effectiveDate": this.leverForm.value.dateEffective,
-      "zipCode": this.leverForm.value.zipCode,
-      "numberOfEmployees": this.leverForm.value.noOfEmps,
-      "typeOfPlan": this.leverForm.value.typeOfPlan,
-      "selectedLevers": {
-        "naics": {
-          "id": "naics",
-          "name": "naics",
-          "selectedElement": {
-            "id": this.leverForm.value.nics,
-            "leverId": "naics"
-          }
-        },
-        "plan": {
-          "id": "plan",
-          "name": "plan",
-          "selectedElement": {
-            "id": this.selectedPlan,
-            "leverId": "plan"
-          }
-        }
-      }
-    };
+    let leversReqWithPlan = { healthcareCompanyId: 1, subcompanyId: 1, effectiveDate: this.leverForm.value.dateEffective, zipCode: this.leverForm.value.zipCode, numberOfEmployees: this.leverForm.value.noOfEmps, typeOfPlan: this.leverForm.value.typeOfPlan, selectedLevers: { naics: { id: "naics", name: "naics", selectedElement: { id: this.leverForm.value.nics, leverId: "naics" }, isTerminal: false }, plan: { id: "plan", name: "plan", selectedElement: { id: this.selectedPlan, leverId: "plan" }, isTerminal: false } } };
 
 
 //client start
@@ -424,32 +400,32 @@ export class LeverSelectionComponent implements OnInit {
   getResponseAfterAllLeversSelected() { 
     this.updatedFormatOfLeversAfterAllLeversSelected = [];
     this.networdIds = [];
-    let leversReqWithAllSelectedLevers = {
-      "healthcareCompanyId": 1,
-      "subcompanyId": 1,
-      "effectiveDate": this.leverForm.value.dateEffective,
-      "zipCode": this.leverForm.value.zipCode,
-      "numberOfEmployees": this.leverForm.value.noOfEmps,
-      "typeOfPlan": this.leverForm.value.typeOfPlan,
-      "selectedLevers": {
-        "naics": {
-          "id": "naics",
-          "name": "naics",
-          "selectedElement": {
-            "id": this.leverForm.value.nics,
-            "leverId": "naics"
-          }
-        },
-        "plan": {
-          "id": "plan",
-          "name": "plan",
-          "selectedElement": {
-            "id": this.selectedPlan,
-            "leverId": "plan"
+    let leversReqWithAllSelectedLevers =
+      {
+        healthcareCompanyId: 1,
+        subcompanyId: 1,
+        effectiveDate: this.leverForm.value.dateEffective,
+        zipCode: this.leverForm.value.zipCode,
+        numberOfEmployees: this.leverForm.value.noOfEmps,
+        typeOfPlan: this.leverForm.value.typeOfPlan,
+        selectedLevers: {
+          naics: {
+            id: "naics",
+            name: "naics",
+            selectedElement:
+              { id: this.leverForm.value.nics, leverId: "naics" },
+            isTerminal: false
+          },
+          plan: {
+            id: "plan",
+            name: "plan",
+            selectedElement: {
+              id: this.selectedPlan,
+              leverId: "plan"
+            }, isTerminal: false
           }
         }
-      }
-    };
+      };
 
  
 
@@ -461,7 +437,9 @@ export class LeverSelectionComponent implements OnInit {
           "selectedElement": {
             "id": element.selectedValue,
             "leverId": element.id
-          }
+          },
+          "isTerminal": element.isTerminal,
+          "level":element.level
         }      
       }
     });

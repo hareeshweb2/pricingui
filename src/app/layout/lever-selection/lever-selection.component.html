@@ -117,7 +117,7 @@
                 <section *ngIf="selectedPlan">
                     <div class="form-group" *ngFor="let lever of updatedFormatOfLevers">
                         <label for="typeOfPlan">{{lever.name}}</label>
-                        <select class="form-control" [(ngModel)]="lever.selectedValue">
+                        <select class="form-control" [(ngModel)]="lever.selectedValue" change="getResponseAfterAllLeversSelected()">
                             <option  value="">select</option>
       <option *ngFor="let element of lever.elements" [value]="element.id">
           {{element.value}}
@@ -126,7 +126,7 @@
                     </div>
                 </section>
 
-                <button style="float:right" type="button" (click)="getResponseAfterAllLeversSelected()">GET</button>
+                <!-- <button style="float:right" type="button" (click)="getResponseAfterAllLeversSelected()">GET</button> -->
 
                 <!-- network level levers -->
                 <section *ngIf="selectedPlan">
