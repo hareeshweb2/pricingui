@@ -1,21 +1,25 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-    name: 'filter',
+    name: "filter",
     pure: false
 })
 export class FilterPipe implements PipeTransform {
     transform(items: any[], filter: string): any {
-        debugger;
         if (!items || !filter) {
             return items;
         }
         // filter items array, items which match and return true will be
         // kept, false will be filtered out
-        return items.filter(item => item.networkId.indexOf(filter) !== -1);
+        return items.filter(item => {
+            if (item.networkId) {
+                return item.networkId.indexOf(filter) !== -1;
+            } else {
+                return false;
+            }
+        });
     }
 }
-
 
 @Pipe({
     name: "filterForRates",
@@ -23,12 +27,17 @@ export class FilterPipe implements PipeTransform {
 })
 export class FilterPipe2 implements PipeTransform {
     transform(items: any[], filter: string): any {
-        debugger;
         if (!items || !filter) {
             return items;
         }
         // filter items array, items which match and return true will be
         // kept, false will be filtered out
-        return items.filter(item => item.network.indexOf(filter) !== -1);
+        return items.filter(item => {
+            if (item.network) {
+                item.network.indexOf(filter) !== -1;
+            } else {
+                return false;
+            }
+        });
     }
 }
