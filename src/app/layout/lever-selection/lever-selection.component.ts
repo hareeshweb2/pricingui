@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
- 
+
 @Component({
     selector: "app-lever-selection",
     templateUrl: "./lever-selection.component.html",
@@ -17,7 +17,7 @@ import { Observable } from "rxjs/Observable";
     animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
-    showrates:boolean=false;
+    showrates: boolean = false;
     rates: any;
     leversDataAfterAllLeversSelected: any;
     leversDataAfterPlanSelection: any;
@@ -52,9 +52,7 @@ export class LeverSelectionComponent implements OnInit {
         { id: "0110", value: "0110" },
         { id: "1330", value: "1330" }
     ];
-    networksList=[
-        "Premier","PPO","OON"
-    ];
+    networksList = ["Premier", "PPO", "OON"];
 
     constructor(private fb: FormBuilder, private http: HttpClient) {}
 
@@ -76,10 +74,9 @@ export class LeverSelectionComponent implements OnInit {
     }
 
     submit() {
-        console.log("Saved: " + JSON.stringify(this.leverForm.value));
-
+        this.selectedPlan = "";
         this.isSubmitted = true;
-
+        this.rates = [];
         let leversReq = {
             healthcareCompanyId: 1,
             subcompanyId: 1,
@@ -137,9 +134,7 @@ export class LeverSelectionComponent implements OnInit {
     //after plan selection
 
     getResponseForPlan() {
-        console.log(
-            "after plan req object: " + JSON.stringify(this.leverForm.value)
-        );
+        this.rates = [];
         this.updatedFormatOfLevers = [];
         this.isSubmitted = true;
 
@@ -193,9 +188,13 @@ export class LeverSelectionComponent implements OnInit {
                             ].id;
                             lever.name = this.leversDataAfterPlanSelection.levers[
                                 element
-                          ].name;
-                          lever.isTerminal = this.leversDataAfterPlanSelection.levers[element].isTerminal;
-                           lever.level = this.leversDataAfterPlanSelection.levers[element].level;
+                            ].name;
+                            lever.isTerminal = this.leversDataAfterPlanSelection.levers[
+                                element
+                            ].isTerminal;
+                            lever.level = this.leversDataAfterPlanSelection.levers[
+                                element
+                            ].level;
                             lever.elements = [];
 
                             let keysElements = Object.keys(
@@ -243,6 +242,7 @@ export class LeverSelectionComponent implements OnInit {
 
     //call after all levers selected start
     getResponseAfterAllLeversSelected() {
+        this.rates = [];
         this.updatedFormatOfLeversAfterAllLeversSelected = [];
         this.networdIds = [];
         let leversReqWithAllSelectedLevers = {
@@ -292,8 +292,6 @@ export class LeverSelectionComponent implements OnInit {
         console.log(leversReqWithAllSelectedLevers);
         console.log(JSON.stringify(leversReqWithAllSelectedLevers));
 
-       
-
         //server start
         this.http
             .post(
@@ -302,9 +300,9 @@ export class LeverSelectionComponent implements OnInit {
             )
             .subscribe(
                 data => {
-                    this.showrates=true;
+                    this.showrates = true;
                     this.leversDataAfterAllLeversSelected = data;
-                    this.rates=this.leversDataAfterAllLeversSelected.rates;
+                    this.rates = this.leversDataAfterAllLeversSelected.rates;
                     console.log(this.leversDataAfterAllLeversSelected);
                     console.log(
                         JSON.stringify(this.leversDataAfterAllLeversSelected)
