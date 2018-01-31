@@ -97,7 +97,7 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-4">
-                <div class="form-group" *ngIf="isSubmitted">
+                <div class="form-group" *ngIf="showPlans">
                     <label for="typeOfPlan">Available Plans</label>
                     <select class="form-control" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
       <option *ngFor="let plan of plans" [value]="leversResponse.levers.plan.elements[plan].id">
@@ -105,35 +105,32 @@
       </option>
      
     </select>
-
-
-
                 </div>
-
-
-
 
 
                 <section *ngIf="selectedPlan">
                     <div class="form-group" *ngFor="let lever of updatedFormatOfLevers">
                         <label for="typeOfPlan">{{lever.name}}</label>
-                        <select class="form-control" [(ngModel)]="lever.selectedValue" (change)="getResponseAfterAllLeversSelected()">
+                        <select  class="form-control" [(ngModel)]="lever.selectedValue">
                             <option  value="">select</option>
       <option *ngFor="let element of lever.elements" [value]="element.id">
           {{element.value}}
       </option>
     </select>
                     </div>
+
+                    <br>
+                    <button style="float:right" type="button" class="btn btn-primary" (click)="getResponseAfterAllLeversSelected()">Get Networks</button>
+    <br> 
+    <br>
                 </section>
-
-                <!-- <button style="float:right" type="button" (click)="getResponseAfterAllLeversSelected()">GET</button> -->
-
+               
                 <!-- network level levers -->
-                <section *ngIf="showrates">
+                <section *ngIf="showRates">
 
 
                     <section *ngFor="let network of networksList" class="network-panel">
-                        <div class="network-name">{{network}}</div>
+                        <div class="network-name"><span>Network - </span>{{network}}</div>
                         <div class="form-group" *ngFor="let lever of updatedFormatOfLeversAfterAllLeversSelected | filter:network">
                             <label for="typeOfPlan">{{lever.name}}</label>
 

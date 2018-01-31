@@ -17,7 +17,7 @@ import { Observable } from "rxjs/Observable";
     animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
-    showrates: boolean = false;
+    showRates: boolean = false;
     rates: any;
     leversDataAfterAllLeversSelected: any;
     leversDataAfterPlanSelection: any;
@@ -29,7 +29,7 @@ export class LeverSelectionComponent implements OnInit {
     updatedFormatOfLevers: any = [];
     updatedFormatOfLeversAfterAllLeversSelected: any = [];
     leverForm: FormGroup;
-    isSubmitted: boolean = false;
+    showPlans: boolean = false;
     selectedPlan;
     leversReqWithAllSelectedLevers: any;
     networdIds: any = [];
@@ -75,7 +75,8 @@ export class LeverSelectionComponent implements OnInit {
 
     submit() {
         this.selectedPlan = "";
-        this.isSubmitted = true;
+        this.showPlans = true;
+        this.showRates=false;
         this.rates = [];
         let leversReq = {
             healthcareCompanyId: 1,
@@ -136,7 +137,7 @@ export class LeverSelectionComponent implements OnInit {
     getResponseForPlan() {
         this.rates = [];
         this.updatedFormatOfLevers = [];
-        this.isSubmitted = true;
+        this.showPlans = true;
 
         let leversReqWithPlan = {
             healthcareCompanyId: 1,
@@ -300,7 +301,7 @@ export class LeverSelectionComponent implements OnInit {
             )
             .subscribe(
                 data => {
-                    this.showrates = true;
+                    this.showRates = true;
                     this.leversDataAfterAllLeversSelected = data;
                     this.rates = this.leversDataAfterAllLeversSelected.rates;
                     console.log(this.leversDataAfterAllLeversSelected);

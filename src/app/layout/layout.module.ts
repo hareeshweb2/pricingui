@@ -9,13 +9,15 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LeverSelectionComponent } from './lever-selection/lever-selection.component';
 import { FilterPipe,FilterPipe2 } from '../shared/pipes/filter.pipe';
+import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
 @NgModule({
     imports: [
         CommonModule,
         SharedPipesModule,
         LayoutRoutingModule, ReactiveFormsModule, FormsModule,
-        NgbDropdownModule.forRoot()
+        NgbDropdownModule.forRoot(),
+        NgHttpLoaderModule
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent, LeverSelectionComponent,FilterPipe, FilterPipe2 ]
 })
