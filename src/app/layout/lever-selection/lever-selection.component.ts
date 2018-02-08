@@ -36,8 +36,7 @@ export class LeverSelectionComponent implements OnInit {
     selectedPlan;
     leversReqWithAllSelectedLevers: any;
     networdIds: any = [];
-   
-    
+
     networksList = ["Premier", "PPO", "OON"];
 
     arrRegions: any;
@@ -52,7 +51,7 @@ export class LeverSelectionComponent implements OnInit {
     planLeverId: any;
 
     constructor(private fb: FormBuilder, private http: HttpClient) {}
-
+    
     ngOnInit() {
         this.leverForm = this.fb.group({
             dateEffective: ["", [Validators.required]],
@@ -348,7 +347,7 @@ export class LeverSelectionComponent implements OnInit {
             ]
         };
 
-        //client start
+        // client start
         // this.response3 = {
         //     levers: [
         //         {
@@ -603,7 +602,7 @@ export class LeverSelectionComponent implements OnInit {
                     if (this.response3.message) {
                         alert("No Data Found for this selection");
                         return;
-                    } 
+                    }
                 },
                 error => {
                     this.plans = [];
@@ -637,6 +636,11 @@ export class LeverSelectionComponent implements OnInit {
         };
 
         this.response3.levers.forEach(element => {
+            if (element.elements.length == 1) { 
+                 let obj = { leverId: element.id, elementId: element.elements[0].id, selectedValue: element.elements[0].value };
+                 this.ratesRequest.selections.push(obj);
+            }
+
             if (element.selectedValue) {
                 let obj = {
                     leverId: element.id,
@@ -707,3 +711,5 @@ export class LeverSelectionComponent implements OnInit {
 
     //end call after all levers selected
 }
+
+

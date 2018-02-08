@@ -13,6 +13,20 @@
     font-size: 18px;
 }
 
+.ntlevel {
+    font-weight: bold;
+    color: blue;
+    padding: 10px;
+    padding-left: 0;
+}
+
+.vall {
+    font-weight: bold;
+    color: blue;
+    padding-left: 2px;
+    ;
+}
+
 .network-panel {
     background: #e8e8e8;
     padding: 6px 15px;
@@ -23,6 +37,7 @@
 .network-panel span {
     color: blue;
 }
+
 .rats {
     color: black;
     font-size: 21px;

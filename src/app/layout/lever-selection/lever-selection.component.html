@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <form novalidate (ngSubmit)="submit()" [formGroup]="leverForm">
                     <div class="form-group">
                         <label for="efDate">Effective Date</label>
@@ -109,14 +109,16 @@
                         </span>
                     </div> -->
 
-                    <button type="submit" [disabled]="!leverForm.valid" class="btn btn-primary">Submit</button>
+                    <!-- <button type="submit" [disabled]="!leverForm.valid" class="btn btn-primary">Submit</button> -->
+                    <button type="submit" class="btn btn-primary">Submit</button>
+
                 </form>
             </div>
             <div class="col-sm-1"></div>
-            <div class="col-sm-4">
-                <div class="form-group" *ngIf="showPlans">
+            <div class="col-sm-7">
+                <div class="" *ngIf="showPlans">
                     <label for="typeOfPlan">Available Plans</label>
-                    <select class="form-control" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
+                    <select class="" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
       <option *ngFor="let plan of plans" [value]="plan">
           {{plan.value}}
       </option>
@@ -126,13 +128,22 @@
 
 
                 <section *ngIf="selectedPlan">
-                    <div class="form-group" *ngFor="let lever of response3.levers">
+                    <div class="ntlevel">Network level levers</div>
+                    <div class="" *ngFor="let lever of response3.levers">
                         <label for="typeOfPlan">{{lever.name}}</label>
-                        <select class="form-control" [(ngModel)]="lever.selectedValue">
+
+                        <select *ngIf="lever.elements.length>1" class="" [(ngModel)]="lever.selectedValue">
       <option *ngFor="let element of lever.elements" [value]="element">
           {{element.value}}
       </option>
     </select>
+
+                        <!-- <select [hidden]="lever.elements.length<=1" class="" [(ngModel)]="lever.selectedValue">
+      <option *ngFor="let element of lever.elements" [value]="element" selected>
+          {{element.value}}
+      </option>
+    </select> -->
+                        <span *ngIf="lever.elements.length<=1" class="vall">{{lever.elements[0].value}}</span>
                     </div>
 
                     <br>
