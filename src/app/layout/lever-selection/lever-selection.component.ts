@@ -161,7 +161,7 @@ export class LeverSelectionComponent implements OnInit {
         //server
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
                 initialRequest
             )
             .subscribe(
@@ -294,7 +294,7 @@ export class LeverSelectionComponent implements OnInit {
         //server
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
                 request2
             )
             .subscribe(
@@ -594,7 +594,7 @@ export class LeverSelectionComponent implements OnInit {
         //server start
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
                 request3
             )
             .subscribe(
@@ -671,7 +671,7 @@ export class LeverSelectionComponent implements OnInit {
         //server start
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/rates",
                 this.ratesRequest
             )
             .subscribe(
