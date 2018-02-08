@@ -98,30 +98,12 @@ export class LeverSelectionComponent implements OnInit {
                     networkId: null,
                     benefitClassId: null,
                     elements: [
-                        {
-                            id: 1,
-                            value: "SOUTHWEST"
-                        },
-                        {
-                            id: 2,
-                            value: "NORTHERN"
-                        },
-                        {
-                            id: 3,
-                            value: "TIDEWATER"
-                        },
-                        {
-                            id: 4,
-                            value: "RICHMOND"
-                        },
-                        {
-                            id: 5,
-                            value: "CENTRAL"
-                        },
-                        {
-                            id: 6,
-                            value: "OUT OF STATE"
-                        }
+                        { id: 1, value: "SOUTHWEST" },
+                        { id: 2, value: "NORTHERN" },
+                        { id: 3, value: "TIDEWATER" },
+                        { id: 4, value: "RICHMOND" },
+                        { id: 5, value: "CENTRAL" },
+                        { id: 6, value: "OUT OF STATE" }
                     ]
                 },
                 {
@@ -130,18 +112,9 @@ export class LeverSelectionComponent implements OnInit {
                     networkId: null,
                     benefitClassId: null,
                     elements: [
-                        {
-                            id: 7,
-                            value: null
-                        },
-                        {
-                            id: 8,
-                            value: null
-                        },
-                        {
-                            id: 9,
-                            value: null
-                        }
+                        { id: 7, value: null },
+                        { id: 8, value: null },
+                        { id: 9, value: null }
                     ]
                 },
                 {
@@ -150,18 +123,9 @@ export class LeverSelectionComponent implements OnInit {
                     networkId: null,
                     benefitClassId: null,
                     elements: [
-                        {
-                            id: 10,
-                            value: "EXCHANGE CERTIFIED"
-                        },
-                        {
-                            id: 11,
-                            value: "KAIG PARTNERSHIP"
-                        },
-                        {
-                            id: 12,
-                            value: "TRADITIONAL"
-                        },
+                        { id: 10, value: "EXCHANGE CERTIFIED" },
+                        { id: 11, value: "KAIG PARTNERSHIP" },
+                        { id: 12, value: "TRADITIONAL" },
                         {
                             id: 13,
                             value:
@@ -175,22 +139,10 @@ export class LeverSelectionComponent implements OnInit {
                     networkId: null,
                     benefitClassId: null,
                     elements: [
-                        {
-                            id: 14,
-                            value: "4444110"
-                        },
-                        {
-                            id: 15,
-                            value: "4444130"
-                        },
-                        {
-                            id: 16,
-                            value: "1111110"
-                        },
-                        {
-                            id: 17,
-                            value: "3333110"
-                        }
+                        { id: 14, value: "4444110" },
+                        { id: 15, value: "4444130" },
+                        { id: 16, value: "1111110" },
+                        { id: 17, value: "3333110" }
                     ]
                 }
             ]
@@ -232,7 +184,7 @@ export class LeverSelectionComponent implements OnInit {
         //     .subscribe(
         //         data => {
         //             this.initialResponse = data;
-        //             if (this.leversResponse.message) {
+        //             if (this.initialResponse.message) {
         //                 alert("No Data");
         //                 this.plans = [];
         //                 return;
@@ -272,68 +224,126 @@ export class LeverSelectionComponent implements OnInit {
     }
 
     submit() {
-                 this.selectedPlan = "";
-                 this.showPlans = true;
-                 this.showRates = false;
-                 this.rates = [];
-                 // let request2 =
-                 //     {
-                 //         healthcareCompanyId: 1,
-                 //         subcompanyId: 1,
-                 //         effectiveDate: this.leverForm.value.dateEffective,
-                 //         zipCode: this.leverForm.value.zipCode,
-                 //         numberOfEmployees: this.leverForm.value.noOfEmps,
-                 //         typeOfPlan: this.leverForm.value.typeOfPlan,
-                 //         selectedLevers: {
-                 //             naics: { id: "naics", name: "naics", selectedElement: { id: this.leverForm.value.nics, leverId: "naics" }, isTerminal: false }
-                 //         }
-                 //     };
+        this.selectedPlan = "";
+        this.showPlans = true;
+        this.showRates = false;
+        this.rates = [];
+        // let request2 =
+        //     {
+        //         healthcareCompanyId: 1,
+        //         subcompanyId: 1,
+        //         effectiveDate: this.leverForm.value.dateEffective,
+        //         zipCode: this.leverForm.value.zipCode,
+        //         numberOfEmployees: this.leverForm.value.noOfEmps,
+        //         typeOfPlan: this.leverForm.value.typeOfPlan,
+        //         selectedLevers: {
+        //             naics: { id: "naics", name: "naics", selectedElement: { id: this.leverForm.value.nics, leverId: "naics" }, isTerminal: false }
+        //         }
+        //     };
 
-                 let request2 = { healthcareCompanyId: 1, subcompanyId: 1, effectiveDate: this.leverForm.value.dateEffective, selections: [{ leverId: this.regionLeverId, elementId: null, selectedValue: this.leverForm.value.region }, { leverId: this.noOfEmpsLeverId, elementId: null, selectedValue: this.leverForm.value.noOfEmps }, { leverId: this.planTypeLeverId, elementId: 12, selectedValue: this.leverForm.value.planType }, { leverId: this.NAICSLeverId, elementId: null, selectedValue: this.leverForm.value.nics }] };
+        let request2 = {
+            healthcareCompanyId: 1,
+            subcompanyId: 1,
+            effectiveDate: this.leverForm.value.dateEffective,
+            selections: [
+                {
+                    leverId: this.regionLeverId,
+                    elementId: null,
+                    selectedValue: this.leverForm.value.region
+                },
+                {
+                    leverId: this.noOfEmpsLeverId,
+                    elementId: null,
+                    selectedValue: this.leverForm.value.noOfEmps
+                },
+                {
+                    leverId: this.planTypeLeverId,
+                    elementId: 12,
+                    selectedValue: this.leverForm.value.planType
+                },
+                {
+                    leverId: this.NAICSLeverId,
+                    elementId: null,
+                    selectedValue: this.leverForm.value.nics
+                }
+            ]
+        };
 
-                 //client starts
-                 this.response2 = { levers: [{ id: 5, name: "PLAN", networkId: null, benefitClassId: null, elements: [{ id: 18, value: "PPO/EPO CP140" }, { id: 19, value: "PPO/EPO CP360" }, { id: 22, value: "PPO Plus Premier Passive" }, { id: 24, value: "PPO Plus Premier Active - Option 2" }, { id: 26, value: "PREMIER" }, { id: 28, value: "PPO Plus Premier aXcess 50" }, { id: 30, value: "PPO Plus Premier Passive, Voluntary" }, { id: 32, value: "PPO Plus Premier Active - Option 2, Voluntary" }, { id: 34, value: "Premier, Voluntary" }, { id: 36, value: "PPO Plus Premier Exchange-Certified Family Plan, Voluntary" }] }] };
+        //client starts
+        this.response2 = {
+            levers: [
+                {
+                    id: 5,
+                    name: "PLAN",
+                    networkId: null,
+                    benefitClassId: null,
+                    elements: [
+                        { id: 18, value: "PPO/EPO CP140" },
+                        { id: 19, value: "PPO/EPO CP360" },
+                        { id: 22, value: "PPO Plus Premier Passive" },
+                        { id: 24, value: "PPO Plus Premier Active - Option 2" },
+                        { id: 26, value: "PREMIER" },
+                        { id: 28, value: "PPO Plus Premier aXcess 50" },
+                        {
+                            id: 30,
+                            value: "PPO Plus Premier Passive, Voluntary"
+                        },
+                        {
+                            id: 32,
+                            value:
+                                "PPO Plus Premier Active - Option 2, Voluntary"
+                        },
+                        { id: 34, value: "Premier, Voluntary" },
+                        {
+                            id: 36,
+                            value:
+                                "PPO Plus Premier Exchange-Certified Family Plan, Voluntary"
+                        }
+                    ]
+                }
+            ]
+        };
 
-                 this.plans = this.response2.levers.find(i => i.name == "PLAN").elements;
-                 this.planLeverId = this.response2.levers.find(i => i.name == "PLAN").id;
-                 //client ends
+        this.plans = this.response2.levers.find(i => i.name == "PLAN").elements;
+        this.planLeverId = this.response2.levers.find(i => i.name == "PLAN").id;
+        //client ends
 
-                 //server
-                 // this.http
-                 //     .post(
-                 //         "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
-                 //         request2
-                 //     )
-                 //     .subscribe(
-                 //         data => {
-                 //             this.response2 = data;
-                 //             if (this.leversResponse.message) {
-                 //                 alert("No Plans Found for this selection");
-                 //                 this.plans = [];
-                 //                 return;
-                 //             } else
-                 //                 {
-                 // this.plans = this.response2.levers.find(i => i.name == "Plan").elements;
-                // this.planLeverId = this.response2.levers.find(i => i.name == "PLAN").id;
-                 //}
-                 //         },
-                 //         error => {
-                 //             this.plans = [];
-                 //             console.log(
-                 //                 "Response ERROR: " + JSON.stringify(error)
-                 //             );
-                 //             if (error.message == "Resource not found")
-                 //                 alert("Data not found for this search");
-                 //             else
-                 //                 alert(
-                 //                     "Data not found for this search, Might be bad request"
-                 //                 );
-                 //             console.error("Error submitting post request!");
-                 //             return Observable.throw(error);
-                 //         }
-                 //     );
-                 //server end
-             }
+        //server
+        // this.http
+        //     .post(
+        //         "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
+        //         request2
+        //     )
+        //     .subscribe(
+        //         data => {
+        //             this.response2 = data;
+        //             if (this.leversResponse.message) {
+        //                 alert("No Plans Found for this selection");
+        //                 this.plans = [];
+        //                 return;
+        //             } else
+        //                 {
+        // this.plans = this.response2.levers.find(i => i.name == "Plan").elements;
+        // this.planLeverId = this.response2.levers.find(i => i.name == "PLAN").id;
+        //}
+        //         },
+        //         error => {
+        //             this.plans = [];
+        //             console.log(
+        //                 "Response ERROR: " + JSON.stringify(error)
+        //             );
+        //             if (error.message == "Resource not found")
+        //                 alert("Data not found for this search");
+        //             else
+        //                 alert(
+        //                     "Data not found for this search, Might be bad request"
+        //                 );
+        //             console.error("Error submitting post request!");
+        //             return Observable.throw(error);
+        //         }
+        //     );
+        //server end
+    }
 
     //after plan selection
 
@@ -676,61 +686,85 @@ export class LeverSelectionComponent implements OnInit {
 
     //call after all levers selected start
     getRates() {
-                   this.showRates = true;
-                   this.rates = [];
-                   this.updatedFormatOfLeversAfterAllLeversSelected = [];
-                   this.networdIds = [];
-                   this.ratesRequest = { healthcareCompanyId: 1, subcompanyId: 1, effectiveDate: this.leverForm.value.dateEffective, selections: [] };
+        this.showRates = true;
+        this.rates = [];
+        this.updatedFormatOfLeversAfterAllLeversSelected = [];
+        this.networdIds = [];
+        this.ratesRequest = {
+            healthcareCompanyId: 1,
+            subcompanyId: 1,
+            effectiveDate: this.leverForm.value.dateEffective,
+            selections: []
+        };
 
-                   this.response3.levers.forEach(element => {
-                       if (element.selectedValue) {
-                           let obj = { leverId: element.id, elementId: element.selectedValue.id, selectedValue: element.selectedValue.value };
-                           this.ratesRequest.selections.push(obj);
-                       }
-                   });
+        this.response3.levers.forEach(element => {
+            if (element.selectedValue) {
+                let obj = {
+                    leverId: element.id,
+                    elementId: element.selectedValue.id,
+                    selectedValue: element.selectedValue.value
+                };
+                this.ratesRequest.selections.push(obj);
+            }
+        });
 
-                   //client starts
+        //client starts
 
-                   this.rates = [{ network: "PPO", tier: "Subscriber", amount: 20 }, { network: "PPO", tier: "Subscriber + Spouse", amount: 22.15 }, { network: "PPO", tier: "Subscriber + Child", amount: 23.23 }, { network: "PPO", tier: "Subscriber + Children", amount: 24.5 }, { network: "PPO", tier: "Family", amount: 25 }, { network: "Premier", tier: "Subscriber", amount: 25 }, { network: "Premier", tier: "Subscriber + Spouse", amount: 27.15 }, { network: "Premier", tier: "Subscriber + Child", amount: 28.23 }, { network: "Premier", tier: "Subscriber + Children", amount: 29.5 }, { network: "Premier", tier: "Family", amount: 30 }, { network: "OON", tier: "Subscriber", amount: 30 }, { network: "OON", tier: "Subscriber + Spouse", amount: 32.15 }, { network: "OON", tier: "Subscriber + Child", amount: 33.23 }, { network: "OON", tier: "Subscriber + Children", amount: 34.5 }, { network: "OON", tier: "Family", amount: 35 }];
-                   //client ends
+        this.rates = [
+            { network: "PPO", tier: "Subscriber", amount: 20 },
+            { network: "PPO", tier: "Subscriber + Spouse", amount: 22.15 },
+            { network: "PPO", tier: "Subscriber + Child", amount: 23.23 },
+            { network: "PPO", tier: "Subscriber + Children", amount: 24.5 },
+            { network: "PPO", tier: "Family", amount: 25 },
+            { network: "Premier", tier: "Subscriber", amount: 25 },
+            { network: "Premier", tier: "Subscriber + Spouse", amount: 27.15 },
+            { network: "Premier", tier: "Subscriber + Child", amount: 28.23 },
+            { network: "Premier", tier: "Subscriber + Children", amount: 29.5 },
+            { network: "Premier", tier: "Family", amount: 30 },
+            { network: "OON", tier: "Subscriber", amount: 30 },
+            { network: "OON", tier: "Subscriber + Spouse", amount: 32.15 },
+            { network: "OON", tier: "Subscriber + Child", amount: 33.23 },
+            { network: "OON", tier: "Subscriber + Children", amount: 34.5 },
+            { network: "OON", tier: "Family", amount: 35 }
+        ];
+        //client ends
 
-                   //server start
-                   // this.http
-                   //     .post(
-                   //         "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
-                   //         this.ratesRequest
-                   //     )
-                   //     .subscribe(
-                   //         data => {
-                   //             this.showRates = true;
+        //server start
+        // this.http
+        //     .post(
+        //         "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/levers",
+        //         this.ratesRequest
+        //     )
+        //     .subscribe(
+        //         data => {
+        //             this.showRates = true;
 
-                   //             this.rates = data.rates;
+        //             this.rates = data.rates;
 
-                   //             if (this.data.message) {
-                   //                 alert("No Data Found for this selection");
-                   //                 return;
-                   //             } else {
+        //             if (this.data.message) {
+        //                 alert("No Data Found for this selection");
+        //                 return;
+        //             } else {
 
+        //             }
+        //         },
+        //         error => {
+        //             console.log(
+        //                 "Response ERROR: " + JSON.stringify(error)
+        //             );
+        //             if (error.message == "Resource not found")
+        //                 alert("Data not found for this search");
+        //             else
+        //                 alert(
+        //                     "Data not found for this search, Might be bad request"
+        //                 );
+        //             console.error("Error submitting post request!");
+        //             return Observable.throw(error);
+        //         }
+        //     );
 
-                   //             }
-                   //         },
-                   //         error => {
-                   //             console.log(
-                   //                 "Response ERROR: " + JSON.stringify(error)
-                   //             );
-                   //             if (error.message == "Resource not found")
-                   //                 alert("Data not found for this search");
-                   //             else
-                   //                 alert(
-                   //                     "Data not found for this search, Might be bad request"
-                   //                 );
-                   //             console.error("Error submitting post request!");
-                   //             return Observable.throw(error);
-                   //         }
-                   //     );
-
-                   //server end
-               }
+        //server end
+    }
 
     //end call after all levers selected
 }
