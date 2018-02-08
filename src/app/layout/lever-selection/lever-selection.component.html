@@ -19,10 +19,26 @@
                     </div>
 
 
+
+                    <div class="form-group">
+                        <label for="region">Region</label>
+                        <select class="form-control" id="region" formControlName="region">
+      <option *ngFor="let region of arrRegions" [value]="region.value">{{region.value}}</option>
+    </select>
+                        <span class="help-block" *ngIf="(leverForm.get('region').touched || 
+                                                         leverForm.get('region').dirty) && 
+                                                         leverForm.get('region').errors">
+                            <span *ngIf="leverForm.get('region').errors.required">
+                                Please select a region.
+                            </span>
+                        </span>
+                    </div>
+
+
                     <div class="form-group">
                         <label for="typeOfPlan">Type of Plan</label>
                         <select class="form-control" id="typeOfPlan" formControlName="typeOfPlan">
-      <option *ngFor="let plan of planTypes" [value]="plan.value">{{plan.value}}</option>
+      <option *ngFor="let plan of arrPlanTypes" [value]="plan.value">{{plan.value}}</option>
     </select>
                         <span class="help-block" *ngIf="(leverForm.get('typeOfPlan').touched || 
                                                          leverForm.get('typeOfPlan').dirty) && 
@@ -37,7 +53,7 @@
                     <div class="form-group nic">
                         <label for="typeOfPlan">Naics Or Sic Code</label>
                         <select class="form-control" id="nics" formControlName="nics">
-     <option *ngFor="let naic of naics" [value]="naic.value">{{naic.value}}</option>
+     <option *ngFor="let naic of arrNAICS" [value]="naic.value">{{naic.value}}</option>
     </select>
                         <span class="help-block" *ngIf="(leverForm.get('nics').touched || 
                                                          leverForm.get('nics').dirty) && 
@@ -51,7 +67,7 @@
 
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="zipCode">ZipCode</label>
                         <input class="form-control" id="zipCode" aria-describedby="zipCode" placeholder="Zip Code" formControlName="zipCode">
                         <span class="help-block" *ngIf="(leverForm.get('zipCode').touched || 
@@ -62,19 +78,20 @@
                             </span>
 
                         </span>
-                    </div>
+                    </div> -->
 
 
                     <div class="form-group">
-                        <label for="noOfEmps">Number Of Employees</label>
-                        <input onkeypress="return event.charCode >= 48" type="number" min="0" step="1" class="form-control" id="noOfEmps" aria-describedby="noOfEmps" placeholder="Number Of Employees" formControlName="noOfEmps">
+                        <label for="region">No Of Employees</label>
+                        <select class="form-control" id="noOfEmps" formControlName="noOfEmps">
+      <option *ngFor="let noEmp of arrNoOfEmps" [value]="noEmp.value">{{noEmp.value}}</option>
+    </select>
                         <span class="help-block" *ngIf="(leverForm.get('noOfEmps').touched || 
                                                          leverForm.get('noOfEmps').dirty) && 
                                                          leverForm.get('noOfEmps').errors">
                             <span *ngIf="leverForm.get('noOfEmps').errors.required">
-                                Please enter number of employees.
+                                Please select no. Of Employess.
                             </span>
-
                         </span>
                     </div>
 
@@ -100,8 +117,8 @@
                 <div class="form-group" *ngIf="showPlans">
                     <label for="typeOfPlan">Available Plans</label>
                     <select class="form-control" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
-      <option *ngFor="let plan of plans" [value]="leversResponse.levers.plan.elements[plan].id">
-          {{leversResponse.levers.plan.elements[plan].value}}
+      <option *ngFor="let plan of plans" [value]="plan">
+          {{plan.value}}
       </option>
      
     </select>
@@ -109,18 +126,17 @@
 
 
                 <section *ngIf="selectedPlan">
-                    <div class="form-group" *ngFor="let lever of updatedFormatOfLevers">
+                    <div class="form-group" *ngFor="let lever of response3.levers">
                         <label for="typeOfPlan">{{lever.name}}</label>
                         <select class="form-control" [(ngModel)]="lever.selectedValue">
-                            <option  value="">select</option>
-      <option *ngFor="let element of lever.elements" [value]="element.id">
+      <option *ngFor="let element of lever.elements" [value]="element">
           {{element.value}}
       </option>
     </select>
                     </div>
 
                     <br>
-                    <button style="float:right" type="button" class="btn btn-primary" (click)="getResponseAfterAllLeversSelected()">Get Networks</button>
+                    <button style="float:right" type="button" class="btn btn-primary" (click)="getRates()">Get Rates</button>
                     <br>
                     <br>
                 </section>
@@ -129,7 +145,7 @@
                 <section *ngIf="showRates">
 
 
-                    <section *ngFor="let network of networksList" class="network-panel">
+                    <!-- <section *ngFor="let network of networksList" class="network-panel">
                         <div class="network-name"><span>Network - </span>{{network}}</div>
                         <div class="form-group" *ngFor="let lever of updatedFormatOfLeversAfterAllLeversSelected | filter:network">
                             <label for="typeOfPlan">{{lever.name}}</label>
@@ -144,7 +160,7 @@
                         </div>
 
 
-                    </section>
+                    </section> -->
 
 
 
@@ -152,7 +168,7 @@
 
                     <div class="rats">Ratings</div>
                     <!-- Ratings -->
-                    <section *ngIf="selectedPlan">
+                    <section>
 
 
                         <section *ngFor="let network of networksList" class="network-panel">
