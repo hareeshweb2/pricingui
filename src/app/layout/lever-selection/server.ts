@@ -73,192 +73,144 @@ export class LeverSelectionComponent implements OnInit {
         };
 
         //client start
-        this.initialResponse = {
-  "levers": [
-    {
-      "id": 1,
-      "name": "REGION",
-      "network": null,
-      "benefitClass": null,
-      "elements": [
-        {
-          "id": 1,
-          "value": "SOUTHWEST"
-        },
-        {
-          "id": 2,
-          "value": "NORTHERN"
-        },
-        {
-          "id": 3,
-          "value": "TIDEWATER"
-        },
-        {
-          "id": 4,
-          "value": "RICHMOND"
-        },
-        {
-          "id": 5,
-          "value": "CENTRAL"
-        },
-        {
-          "id": 6,
-          "value": "OUT OF STATE"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "NUMBER OF EMPLOYEES",
-      "network": null,
-      "benefitClass": null,
-      "elements": [
-        {
-          "id": 7,
-          "value": null
-        },
-        {
-          "id": 8,
-          "value": null
-        },
-        {
-          "id": 9,
-          "value": null
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "PLAN TYPE",
-      "network": null,
-      "benefitClass": null,
-      "elements": [
-        {
-          "id": 10,
-          "value": "EXCHANGE CERTIFIED"
-        },
-        {
-          "id": 11,
-          "value": "KAIG PARTNERSHIP"
-        },
-        {
-          "id": 12,
-          "value": "TRADITIONAL"
-        },
-        {
-          "id": 13,
-          "value": "TRADITIONAL OFFERED WITH OPTIMA HEALTH PLANS"
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "NAICS",
-      "network": null,
-      "benefitClass": null,
-      "elements": [
-        {
-          "id": 14,
-          "value": "4444110"
-        },
-        {
-          "id": 15,
-          "value": "4444130"
-        },
-        {
-          "id": 16,
-          "value": "1111110"
-        },
-        {
-          "id": 17,
-          "value": "3333110"
-        }
-      ]
-    }
-  ]
-    };
+        // this.initialResponse = {
+        //     levers: [
+        //         {
+        //             id: 1,
+        //             name: "REGION",
+        //             networkId: null,
+        //             benefitClassId: null,
+        //             elements: [
+        //                 { id: 1, value: "SOUTHWEST" },
+        //                 { id: 2, value: "NORTHERN" },
+        //                 { id: 3, value: "TIDEWATER" },
+        //                 { id: 4, value: "RICHMOND" },
+        //                 { id: 5, value: "CENTRAL" },
+        //                 { id: 6, value: "OUT OF STATE" }
+        //             ]
+        //         },
+        //         {
+        //             id: 2,
+        //             name: "NUMBER OF EMPLOYEES",
+        //             networkId: null,
+        //             benefitClassId: null,
+        //             elements: [
+        //                 { id: 7, value: null },
+        //                 { id: 8, value: null },
+        //                 { id: 9, value: null }
+        //             ]
+        //         },
+        //         {
+        //             id: 3,
+        //             name: "PLAN TYPE",
+        //             networkId: null,
+        //             benefitClassId: null,
+        //             elements: [
+        //                 { id: 10, value: "EXCHANGE CERTIFIED" },
+        //                 { id: 11, value: "KAIG PARTNERSHIP" },
+        //                 { id: 12, value: "TRADITIONAL" },
+        //                 {
+        //                     id: 13,
+        //                     value:
+        //                         "TRADITIONAL OFFERED WITH OPTIMA HEALTH PLANS"
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             id: 4,
+        //             name: "NAICS",
+        //             networkId: null,
+        //             benefitClassId: null,
+        //             elements: [
+        //                 { id: 14, value: "4444110" },
+        //                 { id: 15, value: "4444130" },
+        //                 { id: 16, value: "1111110" },
+        //                 { id: 17, value: "3333110" }
+        //             ]
+        //         }
+        //     ]
+        // };
 
-
-        this.arrRegions = this.initialResponse.levers.find(
-            i => i.name == "REGION"
-        ).elements;
-        this.regionLeverId = this.initialResponse.levers.find(
-            i => i.name == "REGION"
-        ).id;
-        this.arrNoOfEmps = this.initialResponse.levers.find(
-            i => i.name == "NUMBER OF EMPLOYEES"
-        ).elements;
-        this.noOfEmpsLeverId = this.initialResponse.levers.find(
-            i => i.name == "NUMBER OF EMPLOYEES"
-        ).id;
-        this.arrPlanTypes = this.initialResponse.levers.find(
-            i => i.name == "PLAN TYPE"
-        ).elements;
-        this.planTypeLeverId = this.initialResponse.levers.find(
-            i => i.name == "PLAN TYPE"
-        ).id;
-        this.arrNAICS = this.initialResponse.levers.find(
-            i => i.name == "NAICS"
-        ).elements;
-        this.NAICSLeverId = this.initialResponse.levers.find(
-            i => i.name == "NAICS"
-        ).id;
+        // this.arrRegions = this.initialResponse.levers.find(
+        //     i => i.name == "REGION"
+        // ).elements;
+        // this.regionLeverId = this.initialResponse.levers.find(
+        //     i => i.name == "REGION"
+        // ).id;
+        // this.arrNoOfEmps = this.initialResponse.levers.find(
+        //     i => i.name == "NUMBER OF EMPLOYEES"
+        // ).elements;
+        // this.noOfEmpsLeverId = this.initialResponse.levers.find(
+        //     i => i.name == "NUMBER OF EMPLOYEES"
+        // ).id;
+        // this.arrPlanTypes = this.initialResponse.levers.find(
+        //     i => i.name == "PLAN TYPE"
+        // ).elements;
+        // this.planTypeLeverId = this.initialResponse.levers.find(
+        //     i => i.name == "PLAN TYPE"
+        // ).id;
+        // this.arrNAICS = this.initialResponse.levers.find(
+        //     i => i.name == "NAICS"
+        // ).elements;
+        // this.NAICSLeverId = this.initialResponse.levers.find(
+        //     i => i.name == "NAICS"
+        // ).id;
 
         //client ends
 
         //server
-        // this.http
-        //     .post(
-        //         "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
-        //         initialRequest
-        //     )
-        //     .subscribe(
-        //         data => {
-        //             this.initialResponse = data;
-        //             if (this.initialResponse.message) {
-        //                 alert("No Data");
-        //                 this.plans = [];
-        //                 return;
-        //             } else {
-        //                 this.arrRegions = this.initialResponse.levers.find(
-        //                     i => i.name == "REGION"
-        //                 ).elements;
-        //                 this.regionLeverId = this.initialResponse.levers.find(
-        //                     i => i.name == "REGION"
-        //                 ).id;
-        //                 this.arrNoOfEmps = this.initialResponse.levers.find(
-        //                     i => i.name == "NUMBER OF EMPLOYEES"
-        //                 ).elements;
-        //                 this.noOfEmpsLeverId = this.initialResponse.levers.find(
-        //                     i => i.name == "NUMBER OF EMPLOYEES"
-        //                 ).id;
-        //                 this.arrPlanTypes = this.initialResponse.levers.find(
-        //                     i => i.name == "PLAN TYPE"
-        //                 ).elements;
-        //                 this.planTypeLeverId = this.initialResponse.levers.find(
-        //                     i => i.name == "PLAN TYPE"
-        //                 ).id;
-        //                 this.arrNAICS = this.initialResponse.levers.find(
-        //                     i => i.name == "NAICS"
-        //                 ).elements;
-        //                 this.NAICSLeverId = this.initialResponse.levers.find(
-        //                     i => i.name == "NAICS"
-        //                 ).id;
-        //             }
-        //         },
-        //         error => {
-        //             this.plans = [];
-        //             console.log("Response ERROR: " + JSON.stringify(error));
-        //             if (error.message == "Resource not found")
-        //                 alert("Data not found for this search");
-        //             else
-        //                 alert(
-        //                     "Data not found for this search, Might be bad request"
-        //                 );
-        //             console.error("Error submitting post request!");
-        //             return Observable.throw(error);
-        //         }
-        //     );
+        this.http
+            .post(
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
+                initialRequest
+            )
+            .subscribe(
+                data => {
+                    this.initialResponse = data;
+                    if (this.initialResponse.message) {
+                        alert("No Data");
+                        this.plans = [];
+                        return;
+                    } else {
+                        this.arrRegions = this.initialResponse.levers.find(
+                            i => i.name == "REGION"
+                        ).elements;
+                        this.regionLeverId = this.initialResponse.levers.find(
+                            i => i.name == "REGION"
+                        ).id;
+                        this.arrNoOfEmps = this.initialResponse.levers.find(
+                            i => i.name == "NUMBER OF EMPLOYEES"
+                        ).elements;
+                        this.noOfEmpsLeverId = this.initialResponse.levers.find(
+                            i => i.name == "NUMBER OF EMPLOYEES"
+                        ).id;
+                        this.arrPlanTypes = this.initialResponse.levers.find(
+                            i => i.name == "PLAN TYPE"
+                        ).elements;
+                        this.planTypeLeverId = this.initialResponse.levers.find(
+                            i => i.name == "PLAN TYPE"
+                        ).id;
+                        this.arrNAICS = this.initialResponse.levers.find(
+                            i => i.name == "NAICS"
+                        ).elements;
+                        this.NAICSLeverId = this.initialResponse.levers.find(
+                            i => i.name == "NAICS"
+                        ).id;
+                    }
+                },
+                error => {
+                    this.plans = [];
+                    console.log("Response ERROR: " + JSON.stringify(error));
+                    if (error.message == "Resource not found")
+                        alert("Data not found for this search");
+                    else
+                        alert(
+                            "Data not found for this search, Might be bad request"
+                        );
+                    console.error("Error submitting post request!");
+                    return Observable.throw(error);
+                }
+            );
         //server end
     }
 
@@ -314,135 +266,79 @@ export class LeverSelectionComponent implements OnInit {
         };
 
         //client starts
-        this.response2 = {
-  "levers": [
-    {
-      "id": 5,
-      "name": "PLAN",
-      "network": null,
-      "benefitClass": null,
-      "elements": [
-        {
-          "id": 18,
-          "value": "PPO/EPO CP140"
-        },
-        {
-          "id": 19,
-          "value": "PPO/EPO CP360"
-        },
-        {
-          "id": 20,
-          "value": "PPO/EPO CP140, Voluntary"
-        },
-        {
-          "id": 21,
-          "value": "PPO/EPO CP360, Voluntary"
-        },
-        {
-          "id": 22,
-          "value": "PPO Plus Premier Passive"
-        },
-        {
-          "id": 23,
-          "value": "PPO Plus Premier Active - Option 1"
-        },
-        {
-          "id": 24,
-          "value": "PPO Plus Premier Active - Option 2"
-        },
-        {
-          "id": 25,
-          "value": "PPO PASSIVE +"
-        },
-        {
-          "id": 26,
-          "value": "PREMIER"
-        },
-        {
-          "id": 27,
-          "value": "PPO Plus Premier aXcess 25"
-        },
-        {
-          "id": 28,
-          "value": "PPO Plus Premier aXcess 50"
-        },
-        {
-          "id": 29,
-          "value": "PPO Plus Premier Choice"
-        },
-        {
-          "id": 30,
-          "value": "PPO Plus Premier Passive, Voluntary"
-        },
-        {
-          "id": 31,
-          "value": "PPO Plus Premier Active - Option 1, Voluntary"
-        },
-        {
-          "id": 32,
-          "value": "PPO Plus Premier Active - Option 2, Voluntary"
-        },
-        {
-          "id": 33,
-          "value": "PPO Passive+, Voluntary"
-        },
-        {
-          "id": 34,
-          "value": "Premier, Voluntary"
-        },
-        {
-          "id": 35,
-          "value": "PPO Plus Premier Exchange-Certified Family Plan"
-        },
-        {
-          "id": 36,
-          "value": "PPO Plus Premier Exchange-Certified Family Plan, Voluntary"
-        }
-      ]
-    }
-  ]
-}
+        // this.response2 = {
+        //     levers: [
+        //         {
+        //             id: 5,
+        //             name: "PLAN",
+        //             networkId: null,
+        //             benefitClassId: null,
+        //             elements: [
+        //                 { id: 18, value: "PPO/EPO CP140" },
+        //                 { id: 19, value: "PPO/EPO CP360" },
+        //                 { id: 22, value: "PPO Plus Premier Passive" },
+        //                 { id: 24, value: "PPO Plus Premier Active - Option 2" },
+        //                 { id: 26, value: "PREMIER" },
+        //                 { id: 28, value: "PPO Plus Premier aXcess 50" },
+        //                 {
+        //                     id: 30,
+        //                     value: "PPO Plus Premier Passive, Voluntary"
+        //                 },
+        //                 {
+        //                     id: 32,
+        //                     value:
+        //                         "PPO Plus Premier Active - Option 2, Voluntary"
+        //                 },
+        //                 { id: 34, value: "Premier, Voluntary" },
+        //                 {
+        //                     id: 36,
+        //                     value:
+        //                         "PPO Plus Premier Exchange-Certified Family Plan, Voluntary"
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // };
 
-
-        this.plans = this.response2.levers.find(i => i.name == "PLAN").elements;
-        this.planLeverId = this.response2.levers.find(i => i.name == "PLAN").id;
+        // this.plans = this.response2.levers.find(i => i.name == "PLAN").elements;
+        // this.planLeverId = this.response2.levers.find(i => i.name == "PLAN").id;
         //client ends
 
         //server
-        // this.http
-        //     .post(
-        //         "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
-        //         request2
-        //     )
-        //     .subscribe(
-        //         data => {
-        //             this.response2 = data;
-        //             if (this.response2.message) {
-        //                 alert("No Plans Found for this selection");
-        //                 this.plans = [];
-        //                 return;
-        //             } else {
-        //                 this.plans = this.response2.levers.find(
-        //                     i => i.name == "Plan"
-        //                 ).elements;
-        //                 this.planLeverId = this.response2.levers.find(
-        //                     i => i.name == "PLAN"
-        //                 ).id;
-        //             }
-        //         },
-        //         error => {
-        //             this.plans = [];
-        //             console.log("Response ERROR: " + JSON.stringify(error));
-        //             if (error.message == "Resource not found")
-        //                 alert("Data not found for this search");
-        //             else
-        //                 alert(
-        //                     "Data not found for this search, Might be bad request"
-        //                 );
-        //             console.error("Error submitting post request!");
-        //             return Observable.throw(error);
-        //         }
-        //     );
+        this.http
+            .post(
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
+                request2
+            )
+            .subscribe(
+                data => {
+                    this.response2 = data;
+                    if (this.response2.message) {
+                        alert("No Plans Found for this selection");
+                        this.plans = [];
+                        return;
+                    } else {
+                        this.plans = this.response2.levers.find(
+                            i => i.name == "Plan"
+                        ).elements;
+                        this.planLeverId = this.response2.levers.find(
+                            i => i.name == "PLAN"
+                        ).id;
+                    }
+                },
+                error => {
+                    this.plans = [];
+                    console.log("Response ERROR: " + JSON.stringify(error));
+                    if (error.message == "Resource not found")
+                        alert("Data not found for this search");
+                    else
+                        alert(
+                            "Data not found for this search, Might be bad request"
+                        );
+                    console.error("Error submitting post request!");
+                    return Observable.throw(error);
+                }
+            );
         //server end
     }
 
