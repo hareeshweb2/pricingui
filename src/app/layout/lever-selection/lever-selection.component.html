@@ -130,7 +130,7 @@
                 <section *ngIf="selectedPlan">
                     <div class="ntlevel">Network level levers</div>
                     <div class="" *ngFor="let lever of response3.levers">
-                        <label for="typeOfPlan">{{lever.name}}</label>
+                        <label for="typeOfPlan">{{lever.network}}-{{lever.benefitClass}}-{{lever.name}}</label>
 
                         <select *ngIf="lever.elements.length>1" class="" [(ngModel)]="lever.selectedValue">
       <option *ngFor="let element of lever.elements" [value]="element">
