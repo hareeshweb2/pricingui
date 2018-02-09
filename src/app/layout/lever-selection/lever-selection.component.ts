@@ -806,8 +806,8 @@ export class LeverSelectionComponent implements OnInit {
             if (element.selectedValue) {
                 let obj = {
                     leverId: element.id,
-                    elementId: "",
-                    selectedValue: element.selectedValue
+                    elementId: element.selectedValue.id,
+                    selectedValue: element.selectedValue.value
                 };
                 this.ratesRequest.selections.push(obj);
             }

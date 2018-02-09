@@ -133,7 +133,11 @@
                         <label for="typeOfPlan">{{lever.network}}-{{lever.benefitClass}}-{{lever.name}}</label>
 
                         <select *ngIf="lever.elements.length>1" class="" [(ngModel)]="lever.selectedValue">
+<<<<<<< HEAD
       <option *ngFor="let element of lever.elements" [value]="element">
+=======
+      <option *ngFor="let element of lever.elements" [ngValue]="element">
+>>>>>>> 865e7324f7f890b4ed9dab26ef8923cfe026ab8e
           {{element.value}}
       </option>
     </select>
