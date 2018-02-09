@@ -20,7 +20,7 @@
 
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="region">Region</label>
                         <select class="form-control" id="region" formControlName="region">
       <option *ngFor="let region of arrRegions" [value]="region.value">{{region.value}}</option>
@@ -32,7 +32,7 @@
                                 Please select a region.
                             </span>
                         </span>
-                    </div>
+                    </div> -->
 
 
                     <div class="form-group">
@@ -67,7 +67,7 @@
 
 
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="zipCode">ZipCode</label>
                         <input class="form-control" id="zipCode" aria-describedby="zipCode" placeholder="Zip Code" formControlName="zipCode">
                         <span class="help-block" *ngIf="(leverForm.get('zipCode').touched || 
@@ -78,10 +78,10 @@
                             </span>
 
                         </span>
-                    </div> -->
+                    </div>
 
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="region">No Of Employees</label>
                         <select class="form-control" id="noOfEmps" formControlName="noOfEmps">
       <option *ngFor="let noEmp of arrNoOfEmps" [value]="noEmp.value">{{noEmp.value}}</option>
@@ -93,21 +93,21 @@
                                 Please select no. Of Employess.
                             </span>
                         </span>
-                    </div>
+                    </div> -->
 
 
-                    <!-- <div class="form-group">
-                        <label for="noOfEmps2">Number Of Out of State Employees</label>
-                        <input onkeypress="return event.charCode >= 48" type="number" min="0" step="1" class="form-control" id="noOfEmps2" aria-describedby="noOfEmps2" placeholder="Number Of Out of State Employees" formControlName="noOfEmps2">
-                        <span class="help-block" *ngIf="(leverForm.get('noOfEmps2').touched || 
-                                                         leverForm.get('noOfEmps2').dirty) && 
-                                                         leverForm.get('noOfEmps2').errors">
-                            <span *ngIf="leverForm.get('noOfEmps2').errors.required">
-                                Please enter number of out of state employees.
+                    <div class="form-group">
+                        <label for="noOfEmps">No Of Employees</label>
+                        <input onkeypress="return event.charCode >= 48" type="number" min="0" step="1" class="form-control" id="noOfEmps" aria-describedby="noOfEmps" placeholder="No Of Employeess" formControlName="noOfEmps">
+                        <span class="help-block" *ngIf="(leverForm.get('noOfEmps').touched || 
+                                                         leverForm.get('noOfEmps').dirty) && 
+                                                         leverForm.get('noOfEmps').errors">
+                            <span *ngIf="leverForm.get('noOfEmps').errors.required">
+                                Please enter No Of Employees.
                             </span>
 
                         </span>
-                    </div> -->
+                    </div>
 
                     <!-- <button type="submit" [disabled]="!leverForm.valid" class="btn btn-primary">Submit</button> -->
                     <button type="submit" class="btn btn-primary">Submit</button>

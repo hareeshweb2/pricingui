@@ -57,9 +57,10 @@ export class LeverSelectionComponent implements OnInit {
             dateEffective: ["", [Validators.required]],
             typeOfPlan: ["", [Validators.required]],
             nics: ["", [Validators.required]],
-            // zipCode: ["", [Validators.required]],
-            noOfEmps: ["", [Validators.required]],
-            region: ["", [Validators.required]]
+            zipCode: ["", [Validators.required]],
+            noOfEmps: ["", [Validators.required]]
+            //,
+            //region: ["", [Validators.required]]
             //,
             // noOfEmps2: ['', [Validators.required]]
         });
@@ -231,7 +232,7 @@ export class LeverSelectionComponent implements OnInit {
                 {
                     leverId: this.regionLeverId,
                     elementId: null,
-                    selectedValue: this.leverForm.value.region
+                    selectedValue: this.leverForm.value.zipcode
                 },
                 {
                     leverId: this.noOfEmpsLeverId,
