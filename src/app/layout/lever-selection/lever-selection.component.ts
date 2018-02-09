@@ -52,6 +52,8 @@ export class LeverSelectionComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private http: HttpClient) {}
 
+
+    
     ngOnInit() {
         this.leverForm = this.fb.group({
             dateEffective: ["", [Validators.required]],
@@ -356,8 +358,8 @@ export class LeverSelectionComponent implements OnInit {
             selections: [
                 {
                     leverId: this.planLeverId,
-                    elementId: this.selectedPlan.id,
-                    selectedValue: this.selectedPlan.value
+                    elementId: "",
+                    selectedValue: this.selectedPlan
                 }
             ]
         };
