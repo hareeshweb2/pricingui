@@ -52,6 +52,8 @@ export class LeverSelectionComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private http: HttpClient) {}
 
+
+    
     ngOnInit() {
         this.leverForm = this.fb.group({
             dateEffective: ["", [Validators.required]],
@@ -298,12 +300,12 @@ export class LeverSelectionComponent implements OnInit {
                 {
                     leverId: this.noOfEmpsLeverId,
                     elementId: null,
-                    selectedValue: this.leverForm.value.noOfEmps
+                    selectedValue: this.leverForm.value.noOfEmps.toString()
                 },
                 {
                     leverId: this.planTypeLeverId,
                     elementId: 12,
-                    selectedValue: this.leverForm.value.typeOfPlan
+                    selectedValue: this.leverForm.value.typeOfPlan.toLowerCase()
                 },
                 {
                     leverId: this.NAICSLeverId,
@@ -409,6 +411,7 @@ export class LeverSelectionComponent implements OnInit {
         //client ends
 
         //server
+<<<<<<< HEAD
         // this.http
         //     .post(
         //         "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
@@ -443,6 +446,42 @@ export class LeverSelectionComponent implements OnInit {
         //             return Observable.throw(error);
         //         }
         //     );
+=======
+        this.http
+            .post(
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
+                request2
+            )
+            .subscribe(
+                data => {
+                    this.response2 = data;
+                    if (this.response2.message) {
+                        alert("No Plans Found for this selection");
+                        this.plans = [];
+                        return;
+                    } else {
+                        this.plans = this.response2.levers.find(
+                            i => i.name == "PLAN"
+                        ).elements;
+                        this.planLeverId = this.response2.levers.find(
+                            i => i.name == "PLAN"
+                        ).id;
+                    }
+                },
+                error => {
+                    this.plans = [];
+                    console.log("Response ERROR: " + JSON.stringify(error));
+                    if (error.message == "Resource not found")
+                        alert("Data not found for this search");
+                    else
+                        alert(
+                            "Data not found for this search, Might be bad request"
+                        );
+                    console.error("Error submitting post request!");
+                    return Observable.throw(error);
+                }
+            );
+>>>>>>> 227c42545a8b47cdb24108efc8d560cf6d7250b0
         //server end
     }
 
@@ -460,8 +499,8 @@ export class LeverSelectionComponent implements OnInit {
             selections: [
                 {
                     leverId: this.planLeverId,
-                    elementId: this.selectedPlan.id,
-                    selectedValue: this.selectedPlan.value
+                    elementId: "",
+                    selectedValue: this.selectedPlan
                 }
             ]
         };
@@ -767,8 +806,8 @@ export class LeverSelectionComponent implements OnInit {
             if (element.selectedValue) {
                 let obj = {
                     leverId: element.id,
-                    elementId: element.selectedValue.id,
-                    selectedValue: element.selectedValue.value
+                    elementId: "",
+                    selectedValue: element.selectedValue
                 };
                 this.ratesRequest.selections.push(obj);
             }
