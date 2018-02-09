@@ -119,8 +119,8 @@
                 <div class="" *ngIf="showPlans">
                     <label for="typeOfPlan">Available Plans</label>
                     <select class="" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
-      <option *ngFor="let plan of plans" [value]="plan">
-          {{plan.value}}
+      <option *ngFor="let plan1 of plans" [value]="plan1.value">
+          {{plan1.value}}
       </option>
      
     </select>
@@ -129,15 +129,11 @@
 
                 <section *ngIf="selectedPlan">
                     <div class="ntlevel">Network level levers</div>
-                    <div class="" *ngFor="let lever of response3.levers">
-                        <label for="typeOfPlan">{{lever.network}}-{{lever.benefitClass}}-{{lever.name}}</label>
+                    <div class="" *ngFor="let lever of response3?.levers">
+                        <label for="typeOfPlan"><span class="nw">{{lever.network}}</span>- <span class="bc">{{lever.benefitClass}}</span> -{{lever.name}}</label>
 
                         <select *ngIf="lever.elements.length>1" class="" [(ngModel)]="lever.selectedValue">
-<<<<<<< HEAD
-      <option *ngFor="let element of lever.elements" [value]="element">
-=======
       <option *ngFor="let element of lever.elements" [ngValue]="element">
->>>>>>> 865e7324f7f890b4ed9dab26ef8923cfe026ab8e
           {{element.value}}
       </option>
     </select>
@@ -147,7 +143,7 @@
           {{element.value}}
       </option>
     </select> -->
-                        <span *ngIf="lever.elements.length<=1" class="vall">{{lever.elements[0].value}}</span>
+                        <span *ngIf="lever.elements.length<=1" class="vall"><span class="nw">{{lever.network}}</span>- <span class="bc">{{lever.benefitClass}}</span>-{{lever.elements[0].value}}</span>
                     </div>
 
                     <br>

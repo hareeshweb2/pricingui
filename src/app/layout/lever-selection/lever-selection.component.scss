@@ -7,11 +7,16 @@
     display: inline-block;
 }
 
+.network-panel select{
+    min-width: 100px;
+}
+
 .network-name {
     font-weight: bold;
     padding: 10px;
     font-size: 18px;
 }
+
 
 .ntlevel {
     font-weight: bold;
@@ -37,12 +42,18 @@
 .network-panel span {
     color: blue;
 }
+.nw{
+    color:rgb(255, 174, 0);
+}
+.bc{
+    color:rgb(255, 0, 255);
+}
 
 .rats {
     color: black;
-    font-size: 21px;
+    font-size: 18px;
     font-weight: bold;
-    padding: 14px;
+    padding: 10px;
     padding-left: 0;
 }
 
