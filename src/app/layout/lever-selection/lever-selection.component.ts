@@ -232,7 +232,7 @@ export class LeverSelectionComponent implements OnInit {
                 {
                     leverId: this.regionLeverId,
                     elementId: null,
-                    selectedValue: this.leverForm.value.zipcode
+                    selectedValue: this.leverForm.value.zipCode
                 },
                 {
                     leverId: this.noOfEmpsLeverId,
