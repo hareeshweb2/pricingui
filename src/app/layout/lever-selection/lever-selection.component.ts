@@ -51,7 +51,7 @@ export class LeverSelectionComponent implements OnInit {
     planLeverId: any;
 
     constructor(private fb: FormBuilder, private http: HttpClient) {}
-    
+
     ngOnInit() {
         this.leverForm = this.fb.group({
             dateEffective: ["", [Validators.required]],
@@ -171,23 +171,36 @@ export class LeverSelectionComponent implements OnInit {
                         alert("No Data");
                         this.plans = [];
                         return;
-                    } else
-        {
-           this.arrRegions = this.initialResponse.levers.find(i => i.name == "REGION").elements;
-           this.regionLeverId = this.initialResponse.levers.find(i => i.name == "REGION").id;
-           this.arrNoOfEmps = this.initialResponse.levers.find(i => i.name == "NUMBER OF EMPLOYEES").elements;
-           this.noOfEmpsLeverId = this.initialResponse.levers.find(i => i.name == "NUMBER OF EMPLOYEES").id;
-           this.arrPlanTypes = this.initialResponse.levers.find(i => i.name == "PLAN TYPE").elements;
-           this.planTypeLeverId = this.initialResponse.levers.find(i => i.name == "PLAN TYPE").id;
-           this.arrNAICS = this.initialResponse.levers.find(i => i.name == "NAICS").elements;
-           this.NAICSLeverId = this.initialResponse.levers.find(i => i.name == "NAICS").id;
-        }
+                    } else {
+                        this.arrRegions = this.initialResponse.levers.find(
+                            i => i.name == "REGION"
+                        ).elements;
+                        this.regionLeverId = this.initialResponse.levers.find(
+                            i => i.name == "REGION"
+                        ).id;
+                        this.arrNoOfEmps = this.initialResponse.levers.find(
+                            i => i.name == "NUMBER OF EMPLOYEES"
+                        ).elements;
+                        this.noOfEmpsLeverId = this.initialResponse.levers.find(
+                            i => i.name == "NUMBER OF EMPLOYEES"
+                        ).id;
+                        this.arrPlanTypes = this.initialResponse.levers.find(
+                            i => i.name == "PLAN TYPE"
+                        ).elements;
+                        this.planTypeLeverId = this.initialResponse.levers.find(
+                            i => i.name == "PLAN TYPE"
+                        ).id;
+                        this.arrNAICS = this.initialResponse.levers.find(
+                            i => i.name == "NAICS"
+                        ).elements;
+                        this.NAICSLeverId = this.initialResponse.levers.find(
+                            i => i.name == "NAICS"
+                        ).id;
+                    }
                 },
                 error => {
                     this.plans = [];
-                    console.log(
-                        "Response ERROR: " + JSON.stringify(error)
-                    );
+                    console.log("Response ERROR: " + JSON.stringify(error));
                     if (error.message == "Resource not found")
                         alert("Data not found for this search");
                     else
@@ -242,7 +255,7 @@ export class LeverSelectionComponent implements OnInit {
                 {
                     leverId: this.planTypeLeverId,
                     elementId: 12,
-                    selectedValue: this.leverForm.value.planType
+                    selectedValue: this.leverForm.value.typeOfPlan
                 },
                 {
                     leverId: this.NAICSLeverId,
@@ -304,17 +317,18 @@ export class LeverSelectionComponent implements OnInit {
                         alert("No Plans Found for this selection");
                         this.plans = [];
                         return;
-                    } else
-                        {
-        this.plans = this.response2.levers.find(i => i.name == "Plan").elements;
-        this.planLeverId = this.response2.levers.find(i => i.name == "PLAN").id;
-        }
+                    } else {
+                        this.plans = this.response2.levers.find(
+                            i => i.name == "Plan"
+                        ).elements;
+                        this.planLeverId = this.response2.levers.find(
+                            i => i.name == "PLAN"
+                        ).id;
+                    }
                 },
                 error => {
                     this.plans = [];
-                    console.log(
-                        "Response ERROR: " + JSON.stringify(error)
-                    );
+                    console.log("Response ERROR: " + JSON.stringify(error));
                     if (error.message == "Resource not found")
                         alert("Data not found for this search");
                     else
@@ -637,9 +651,13 @@ export class LeverSelectionComponent implements OnInit {
         };
 
         this.response3.levers.forEach(element => {
-            if (element.elements.length == 1) { 
-                 let obj = { leverId: element.id, elementId: element.elements[0].id, selectedValue: element.elements[0].value };
-                 this.ratesRequest.selections.push(obj);
+            if (element.elements.length == 1) {
+                let obj = {
+                    leverId: element.id,
+                    elementId: element.elements[0].id,
+                    selectedValue: element.elements[0].value
+                };
+                this.ratesRequest.selections.push(obj);
             }
 
             if (element.selectedValue) {
@@ -683,7 +701,7 @@ export class LeverSelectionComponent implements OnInit {
                 data => {
                     this.showRates = true;
 
-                    let ratesResponse:any = data;
+                    let ratesResponse: any = data;
 
                     if (ratesResponse.message) {
                         alert("No Data Found for this selection");
@@ -693,9 +711,7 @@ export class LeverSelectionComponent implements OnInit {
                     }
                 },
                 error => {
-                    console.log(
-                        "Response ERROR: " + JSON.stringify(error)
-                    );
+                    console.log("Response ERROR: " + JSON.stringify(error));
                     if (error.message == "Resource not found")
                         alert("Data not found for this search");
                     else
@@ -712,5 +728,3 @@ export class LeverSelectionComponent implements OnInit {
 
     //end call after all levers selected
 }
-
-
