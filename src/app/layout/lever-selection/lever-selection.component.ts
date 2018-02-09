@@ -250,12 +250,12 @@ export class LeverSelectionComponent implements OnInit {
                 {
                     leverId: this.noOfEmpsLeverId,
                     elementId: null,
-                    selectedValue: this.leverForm.value.noOfEmps
+                    selectedValue: this.leverForm.value.noOfEmps.toString()
                 },
                 {
                     leverId: this.planTypeLeverId,
                     elementId: 12,
-                    selectedValue: this.leverForm.value.typeOfPlan
+                    selectedValue: this.leverForm.value.typeOfPlan.toLowerCase()
                 },
                 {
                     leverId: this.NAICSLeverId,
@@ -319,7 +319,7 @@ export class LeverSelectionComponent implements OnInit {
                         return;
                     } else {
                         this.plans = this.response2.levers.find(
-                            i => i.name == "Plan"
+                            i => i.name == "PLAN"
                         ).elements;
                         this.planLeverId = this.response2.levers.find(
                             i => i.name == "PLAN"
