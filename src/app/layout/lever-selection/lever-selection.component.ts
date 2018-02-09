@@ -696,7 +696,7 @@ export class LeverSelectionComponent implements OnInit {
         //server start
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/rate",
+                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/rates",
                 this.ratesRequest
             )
             .subscribe(
