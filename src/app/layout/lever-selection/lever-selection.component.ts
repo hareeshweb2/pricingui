@@ -71,6 +71,7 @@ export class LeverSelectionComponent implements OnInit {
             healthcareCompanyId: 1,
             subcompanyId: 1,
             effectiveDate: null,
+            zipCode:null,
             selections: null
         };
 
@@ -243,12 +244,13 @@ export class LeverSelectionComponent implements OnInit {
             healthcareCompanyId: 1,
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
+            zipCode:this.leverForm.value.zipCode,
             selections: [
-                {
-                    leverId: this.regionLeverId,
-                    elementId: null,
-                    selectedValue: this.leverForm.value.zipCode
-                },
+                // {
+                //     leverId: this.regionLeverId,
+                //     elementId: null,
+                //     selectedValue: this.leverForm.value.zipCode
+                // },
                 {
                     leverId: this.noOfEmpsLeverId,
                     elementId: null,
