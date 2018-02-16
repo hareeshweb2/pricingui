@@ -17,6 +17,7 @@ import { Observable } from "rxjs/Observable";
     animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
+    leversWithoutNetworks: any;
     showRates: boolean = false;
     rates: any;
     leversDataAfterAllLeversSelected: any;
@@ -618,6 +619,7 @@ export class LeverSelectionComponent implements OnInit {
             .subscribe(
                 data => {
                     this.response3 = data;
+                    this.leversWithoutNetworks=this.response3.levers.filter(el=>el.network==null);
                     if (this.response3.message) {
                         alert("No Data Found for this selection");
                         return;

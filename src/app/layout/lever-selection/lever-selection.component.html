@@ -114,7 +114,7 @@
 
                 </form>
             </div>
-            <div class="col-sm-1"></div>
+            
             <div class="col-sm-8">
                 <div class="" *ngIf="showPlans">
                     <label for="typeOfPlan">Available Plans</label>
@@ -125,27 +125,50 @@
      
     </select>
                 </div>
-
+<br />
 
                 <section *ngIf="selectedPlan">
-                    <div class="ntlevel">Network level levers</div>
-                    <div class="" *ngFor="let lever of response3?.levers">
-                        <label for="typeOfPlan"><span class="nw">{{lever.network}}</span>- <span class="bc">{{lever.benefitClass}}</span> -{{lever.name}}</label>
+                    
+                        
+                        
+                                <div class="" *ngFor="let lever of leversWithoutNetworks">
+                                       
+                                    <label for="typeOfPlan"> {{lever.name}}: </label>
+                                    <span class="nx" *ngIf="lever.elements.length==1" > {{lever.elements[0].value}}</span> 
+                        <section style="display:inline-block"  *ngIf="lever.elements.length!=1" class="vall" >
+                                    <select class="" [(ngModel)]="lever.selectedValue">
+                        <option *ngFor="let element of lever.elements" [ngValue]="element">
+                        {{element.value}}
+                        </option>
+                        </select>
+                        </section>
+                                </div>
+                  
+                       
 
-                        <select *ngIf="lever.elements.length>1" class="" [(ngModel)]="lever.selectedValue">
+
+
+
+                    
+                    <section *ngFor="let network of networksList" class="network-panel">
+                        <div class="network-name">{{network}}</div>
+
+                    <div class="" *ngFor="let lever of response3?.levers | filterForRates:network">
+                          
+                        <label for="typeOfPlan"> <span class="bc">{{lever.benefitClass}}</span> 
+                            <!-- -{{lever.name}} -->
+                        </label>
+                        <span class="percnt" *ngIf="lever.elements.length==1" > {{lever.elements[0].value}}%</span> 
+<section style="display:inline-block" id="block" *ngIf="lever.elements.length!=1" class="vall" >
+                        <select class="" [(ngModel)]="lever.selectedValue">
       <option *ngFor="let element of lever.elements" [ngValue]="element">
           {{element.value}}
       </option>
     </select>
-
-                        <!-- <select [hidden]="lever.elements.length<=1" class="" [(ngModel)]="lever.selectedValue">
-      <option *ngFor="let element of lever.elements" [value]="element" selected>
-          {{element.value}}
-      </option>
-    </select> -->
-                        <span *ngIf="lever.elements.length<=1" class="vall"><span class="nw">{{lever.network}}</span>- <span class="bc">{{lever.benefitClass}}</span>-{{lever.elements[0].value}}</span>
+</section>
+                          
                     </div>
-
+                    </section>
                     <br>
                     <button style="float:right" type="button" class="btn btn-primary" (click)="getRates()">Get Rates</button>
                     <br>

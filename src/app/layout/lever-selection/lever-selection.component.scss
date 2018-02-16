@@ -14,10 +14,23 @@
 .network-name {
     font-weight: bold;
     padding: 10px;
-    font-size: 18px;
+    font-size: 15px;
+    padding-left: 0;
+    color: #ff6a00;
+    padding-top: 5px;
+    padding-bottom: 2px;
 }
-
-
+.nx{
+    color:rgb(0, 71, 224);
+}
+.col-sm-8 label{
+    font-size: 13px!important
+}
+.percnt{
+    color: #f50066!important;
+    font-weight: bold;
+    font-size: 15px!important;
+}
 .ntlevel {
     font-weight: bold;
     color: blue;
@@ -40,7 +53,8 @@
 }
 
 .network-panel span {
-    color: blue;
+    color: #260cff;
+    font-size: 14px;
 }
 .nw{
     color:rgb(255, 174, 0);
@@ -51,7 +65,7 @@
 
 .rats {
     color: black;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     padding: 10px;
     padding-left: 0;
