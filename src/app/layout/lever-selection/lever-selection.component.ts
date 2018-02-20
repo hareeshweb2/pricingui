@@ -185,9 +185,9 @@ let year = dateObj.getUTCFullYear();
                         // this.arrRegions = this.initialResponse.levers.find(
                         //     i => i.name == "REGION"
                         // ).elements;
-                        this.regionLeverId = this.initialResponse.levers.find(
-                            i => i.name == "REGION"
-                        ).id;
+                        // this.regionLeverId = this.initialResponse.levers.find(
+                        //     i => i.name == "REGION"
+                        // ).id;
                         this.arrNoOfEmps = this.initialResponse.levers.find(
                             i => i.name == "NUMBER OF EMPLOYEES"
                         ).elements;
