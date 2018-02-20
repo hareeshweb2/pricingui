@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <label for="typeOfPlan">Type of Plan</label>
                         <select class="form-control" id="typeOfPlan" formControlName="typeOfPlan">
-      <option *ngFor="let plan of arrPlanTypes" [value]="plan.value">{{plan.value}}</option>
+      <option *ngFor="let plan of arrPlanTypes" [ngValue]="plan">{{plan.value}}</option>
     </select>
                         <span class="help-block" *ngIf="(leverForm.get('typeOfPlan').touched || 
                                                          leverForm.get('typeOfPlan').dirty) && 
@@ -119,7 +119,7 @@
                 <div class="" *ngIf="showPlans">
                     <label for="typeOfPlan">Available Plans</label>
                     <select class="" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
-      <option *ngFor="let plan1 of plans" [value]="plan1.value">
+      <option *ngFor="let plan1 of plans"[ngValue]="plan1">
           {{plan1.value}}
       </option>
      
