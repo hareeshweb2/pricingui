@@ -182,9 +182,9 @@ let year = dateObj.getUTCFullYear();
                         this.plans = [];
                         return;
                     } else {
-                        this.arrRegions = this.initialResponse.levers.find(
-                            i => i.name == "REGION"
-                        ).elements;
+                        // this.arrRegions = this.initialResponse.levers.find(
+                        //     i => i.name == "REGION"
+                        // ).elements;
                         this.regionLeverId = this.initialResponse.levers.find(
                             i => i.name == "REGION"
                         ).id;
