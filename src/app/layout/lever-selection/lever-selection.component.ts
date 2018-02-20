@@ -67,14 +67,20 @@ export class LeverSelectionComponent implements OnInit {
             //,
             // noOfEmps2: ['', [Validators.required]]
         });
-
-        let initialRequest = {
-            healthcareCompanyId: 1,
-            subcompanyId: 1,
-            effectiveDate: null,
-            zipCode:null,
-            selections: null
-        };
+        
+let  dateObj:any = new Date();
+let month:any = dateObj.getUTCMonth() + 1; 
+if(month<10){
+month='0'+month;
+}
+let day:any = dateObj.getUTCDate();
+if(day<10){
+day='0'+day;
+}
+let year = dateObj.getUTCFullYear();
+        let newdate = year + "-" + month + "-" + day;
+        
+        let initialRequest = { healthcareCompanyId: 1, subcompanyId: 1, effectiveDate: newdate, zipCode: null, selections: null };
 
         //client start
         // this.initialResponse = {
