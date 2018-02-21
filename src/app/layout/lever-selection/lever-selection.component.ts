@@ -60,7 +60,7 @@ export class LeverSelectionComponent implements OnInit {
             dateEffective: ["", [Validators.required]],
             typeOfPlan: ["", [Validators.required]],
             nics: ["", [Validators.required]],
-            zipCode: ["", [Validators.required]],
+            zipCode: ["", [Validators.required,Validators.pattern("[0-9]{5}")]],
             noOfEmps: ["", [Validators.required]]
             //,
             //region: ["", [Validators.required]]
