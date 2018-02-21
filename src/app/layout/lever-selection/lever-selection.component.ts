@@ -265,8 +265,8 @@ let year = dateObj.getUTCFullYear();
                 },
                 {
                     leverId: this.planTypeLeverId,
-                    elementId: 12,
-                    selectedValue: this.leverForm.value.typeOfPlan.toLowerCase()
+                    elementId: this.leverForm.value.typeOfPlan.id,
+                    selectedValue: this.leverForm.value.typeOfPlan.value.toLowerCase()
                 },
                 {
                     leverId: this.NAICSLeverId,
@@ -364,11 +364,12 @@ let year = dateObj.getUTCFullYear();
             healthcareCompanyId: 1,
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
+            zipCode:this.leverForm.value.zipCode,
             selections: [
                 {
                     leverId: this.planLeverId,
-                    elementId: "",
-                    selectedValue: this.selectedPlan
+                    elementId: this.selectedPlan.id,
+                    selectedValue: this.selectedPlan.value
                 }
             ]
         };
@@ -659,6 +660,7 @@ let year = dateObj.getUTCFullYear();
             healthcareCompanyId: 1,
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
+            zipCode:this.leverForm.value.zipCode,
             selections: []
         };
 
