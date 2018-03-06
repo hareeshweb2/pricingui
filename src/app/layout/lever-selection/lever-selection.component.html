@@ -222,7 +222,7 @@
                     <section>
 
 
-                        <section *ngFor="let network of networksList" class="network-panel">
+                        <!-- <section *ngFor="let network of networksList" class="network-panel">
                             <div class="network-name">{{network}}</div>
                             <div class="form-group" *ngFor="let rate of rates | filterForRates:network">
                                 <label for="">{{rate.tier}}</label>
@@ -232,7 +232,21 @@
                             </div>
 
 
+                        </section> -->
+
+
+                         <section class="network-panel">
+                            <!-- <div class="network-name">{{network}}</div> -->
+                            <div class="form-group" *ngFor="let rate of rates">
+                                <label for="">{{rate.tier}}</label>
+
+
+                                <span>&nbsp;{{rate.amount}}  </span>
+                            </div>
+
+
                         </section>
+
 
                     </section>
 
