@@ -9,6 +9,9 @@ import {
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
+import {Message} from 'primeng/api';
+
+
 
 @Component({
     selector: "app-lever-selection",
@@ -17,6 +20,7 @@ import { Observable } from "rxjs/Observable";
     animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
+    msgs: Message[] = [];
     leversWithoutNetworks: any;
     showRates: boolean = false;
     rates: any;
@@ -235,6 +239,7 @@ let year = dateObj.getUTCFullYear();
         this.showPlans = true;
         this.showRates = false;
         this.rates = [];
+        this.msgs=[];
         // let request2 =
         //     {
         //         healthcareCompanyId: 1,
@@ -345,9 +350,8 @@ let year = dateObj.getUTCFullYear();
                     if (error.message == "Resource not found")
                         alert("Data not found for this search");
                     else{
-                        alert(
-                            error.error.message
-                        );}
+                        this.msgs.push({severity:'error', summary:'Validation', detail:error.error.message});
+                    }
                     console.error("Error submitting post request!");
                     return Observable.throw(error);
                 }

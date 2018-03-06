@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { LeverSelectionComponent } from './lever-selection/lever-selection.component';
 import { FilterPipe,FilterPipe2 } from '../shared/pipes/filter.pipe';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
+import {GrowlModule} from 'primeng/growl';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
         SharedPipesModule,
         LayoutRoutingModule, ReactiveFormsModule, FormsModule,
         NgbDropdownModule.forRoot(),
-        NgHttpLoaderModule
+        NgHttpLoaderModule,
+        GrowlModule
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent, LeverSelectionComponent,FilterPipe, FilterPipe2 ]
 })

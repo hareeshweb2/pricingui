@@ -1,3 +1,4 @@
+<p-growl [(value)]="msgs" sticky=true ></p-growl>
 <div [@routerTransition]>
     <h2 class="text-muted container">Lever Selection</h2>
     <div class="container">
@@ -235,7 +236,7 @@
                         </section> -->
 
 
-                         <section class="network-panel">
+                         <section class="network-panel" style="padding-top:12px">
                             <!-- <div class="network-name">{{network}}</div> -->
                             <div class="form-group" *ngFor="let rate of rates">
                                 <label for="">{{rate.tier}}</label>
