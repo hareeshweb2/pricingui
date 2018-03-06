@@ -113,8 +113,21 @@
                         </span>
                     </div>
 
-                    <!-- <button type="submit" [disabled]="!leverForm.valid" class="btn btn-primary">Submit</button> -->
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group">
+                        <label for="noOfEmpsVA">No Of Employees outside VA</label>
+                        <input onkeypress="return event.charCode >= 48" type="number" min="0" step="1" class="form-control" id="noOfEmpsVA" aria-describedby="noOfEmpsVA" placeholder="No Of Employeess outside VA" formControlName="noOfEmpsVA">
+                        <span class="help-block" *ngIf="(leverForm.get('noOfEmpsVA').touched || 
+                                                         leverForm.get('noOfEmpsVA').dirty) && 
+                                                         leverForm.get('noOfEmpsVA').errors">
+                            <span *ngIf="leverForm.get('noOfEmpsVA').errors.required">
+                                Please enter No Of Employees residing outside VA.
+                            </span>
+
+                        </span>
+                    </div>
+
+                    <button type="submit" [disabled]="!leverForm.valid" class="btn btn-primary">Submit</button>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 
                 </form>
             </div>

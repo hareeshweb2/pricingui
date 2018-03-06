@@ -61,7 +61,8 @@ export class LeverSelectionComponent implements OnInit {
             typeOfPlan: ["", [Validators.required]],
             nics: ["", [Validators.required]],
             zipCode: ["", [Validators.required,Validators.pattern("[0-9]{5}")]],
-            noOfEmps: ["", [Validators.required]]
+            noOfEmps: ["", [Validators.required]],
+             noOfEmpsVA: ['', [Validators.required]]
             //,
             //region: ["", [Validators.required]]
             //,
@@ -80,7 +81,7 @@ day='0'+day;
 let year = dateObj.getUTCFullYear();
         let newdate = year + "-" + month + "-" + day;
         
-        let initialRequest = { healthcareCompanyId: 1, subcompanyId: 1, effectiveDate: newdate, zipCode: null, selections: null };
+        let initialRequest = { healthcareCompanyId: 1, subcompanyId: 1, effectiveDate: newdate, numberOfEmpsOutsideVa: null, zipCode: null, selections: null };
 
         //client start
         // this.initialResponse = {
@@ -252,6 +253,7 @@ let year = dateObj.getUTCFullYear();
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
             zipCode:this.leverForm.value.zipCode,
+            numberOfEmpsOutsideVa: this.leverForm.value.noOfEmpsVA,
             selections: [
                 // {
                 //     leverId: this.regionLeverId,
@@ -325,7 +327,7 @@ let year = dateObj.getUTCFullYear();
                 data => {
                     this.response2 = data;
                     if (this.response2.message) {
-                        alert("No Plans Found for this selection");
+                        alert(this.response2.message);
                         this.plans = [];
                         return;
                     } else {
@@ -342,10 +344,10 @@ let year = dateObj.getUTCFullYear();
                     console.log("Response ERROR: " + JSON.stringify(error));
                     if (error.message == "Resource not found")
                         alert("Data not found for this search");
-                    else
+                    else{
                         alert(
-                            "Data not found for this search, Might be bad request"
-                        );
+                            error.error.message
+                        );}
                     console.error("Error submitting post request!");
                     return Observable.throw(error);
                 }
@@ -365,6 +367,7 @@ let year = dateObj.getUTCFullYear();
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
             zipCode:this.leverForm.value.zipCode,
+            numberOfEmpsOutsideVa: this.leverForm.value.noOfEmpsVA,
             selections: [
                 {
                     leverId: this.planLeverId,
