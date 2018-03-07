@@ -9,7 +9,7 @@ import {
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
-import {Message} from 'primeng/api';
+import { Message } from 'primeng/api';
 
 
 
@@ -55,36 +55,36 @@ export class LeverSelectionComponent implements OnInit {
     noOfEmpsLeverId: any;
     planLeverId: any;
 
-    constructor(private fb: FormBuilder, private http: HttpClient) {}
+    constructor(private fb: FormBuilder, private http: HttpClient) { }
 
 
-    
+
     ngOnInit() {
         this.leverForm = this.fb.group({
             dateEffective: ["", [Validators.required]],
             typeOfPlan: ["", [Validators.required]],
             nics: ["", [Validators.required]],
-            zipCode: ["", [Validators.required,Validators.pattern("[0-9]{5}")]],
+            zipCode: ["", [Validators.required, Validators.pattern("[0-9]{5}")]],
             noOfEmps: ["", [Validators.required]],
-             noOfEmpsVA: ['', [Validators.required]]
+            noOfEmpsVA: ['', [Validators.required]]
             //,
             //region: ["", [Validators.required]]
             //,
             // noOfEmps2: ['', [Validators.required]]
         });
-        
-let  dateObj:any = new Date();
-let month:any = dateObj.getUTCMonth() + 1; 
-if(month<10){
-month='0'+month;
-}
-let day:any = dateObj.getUTCDate();
-if(day<10){
-day='0'+day;
-}
-let year = dateObj.getUTCFullYear();
+
+        let dateObj: any = new Date();
+        let month: any = dateObj.getUTCMonth() + 1;
+        if (month < 10) {
+            month = '0' + month;
+        }
+        let day: any = dateObj.getUTCDate();
+        if (day < 10) {
+            day = '0' + day;
+        }
+        let year = dateObj.getUTCFullYear();
         let newdate = year + "-" + month + "-" + day;
-        
+
         let initialRequest = { healthcareCompanyId: 1, subcompanyId: 1, effectiveDate: newdate, numberOfEmpsOutsideVa: null, zipCode: null, selections: null };
 
         //client start
@@ -205,12 +205,12 @@ let year = dateObj.getUTCFullYear();
                         this.planTypeLeverId = this.initialResponse.levers.find(
                             i => i.name == "PLAN TYPE"
                         ).id;
-                        this.arrNAICS = this.initialResponse.levers.find(
-                            i => i.name == "NAICS"
-                        ).elements;
-                        this.NAICSLeverId = this.initialResponse.levers.find(
-                            i => i.name == "NAICS"
-                        ).id;
+                        // this.arrNAICS = this.initialResponse.levers.find(
+                        //     i => i.name == "NAICS"
+                        // ).elements;
+                        // this.NAICSLeverId = this.initialResponse.levers.find(
+                        //     i => i.name == "NAICS"
+                        // ).id;
                     }
                 },
                 error => {
@@ -239,7 +239,7 @@ let year = dateObj.getUTCFullYear();
         this.showPlans = true;
         this.showRates = false;
         this.rates = [];
-        this.msgs=[];
+        this.msgs = [];
         // let request2 =
         //     {
         //         healthcareCompanyId: 1,
@@ -257,7 +257,7 @@ let year = dateObj.getUTCFullYear();
             healthcareCompanyId: 1,
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
-            zipCode:this.leverForm.value.zipCode,
+            zipCode: this.leverForm.value.zipCode,
             numberOfEmpsOutsideVa: this.leverForm.value.noOfEmpsVA,
             selections: [
                 // {
@@ -274,12 +274,13 @@ let year = dateObj.getUTCFullYear();
                     leverId: this.planTypeLeverId,
                     elementId: this.leverForm.value.typeOfPlan.id,
                     selectedValue: this.leverForm.value.typeOfPlan.value.toLowerCase()
-                },
-                {
-                    leverId: this.NAICSLeverId,
-                    elementId: null,
-                    selectedValue: this.leverForm.value.nics
                 }
+                // ,
+                // {
+                //     leverId: this.NAICSLeverId,
+                //     elementId: null,
+                //     selectedValue: this.leverForm.value.nics
+                // }
             ]
         };
 
@@ -349,8 +350,8 @@ let year = dateObj.getUTCFullYear();
                     console.log("Response ERROR: " + JSON.stringify(error));
                     if (error.message == "Resource not found")
                         alert("Data not found for this search");
-                    else{
-                        this.msgs.push({severity:'error', summary:'Validation', detail:error.error.message});
+                    else {
+                        this.msgs.push({ severity: 'error', summary: 'Validation', detail: error.error.message });
                     }
                     console.error("Error submitting post request!");
                     return Observable.throw(error);
@@ -370,7 +371,7 @@ let year = dateObj.getUTCFullYear();
             healthcareCompanyId: 1,
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
-            zipCode:this.leverForm.value.zipCode,
+            zipCode: this.leverForm.value.zipCode,
             numberOfEmpsOutsideVa: this.leverForm.value.noOfEmpsVA,
             selections: [
                 {
@@ -633,7 +634,7 @@ let year = dateObj.getUTCFullYear();
             .subscribe(
                 data => {
                     this.response3 = data;
-                    this.leversWithoutNetworks=this.response3.levers.filter(el=>el.network==null);
+                    this.leversWithoutNetworks = this.response3.levers.filter(el => el.network == null);
                     if (this.response3.message) {
                         alert("No Data Found for this selection");
                         return;
@@ -667,7 +668,8 @@ let year = dateObj.getUTCFullYear();
             healthcareCompanyId: 1,
             subcompanyId: 1,
             effectiveDate: this.leverForm.value.dateEffective,
-            zipCode:this.leverForm.value.zipCode,
+            zipCode: this.leverForm.value.zipCode,
+            naics: this.leverForm.value.nics,
             selections: []
         };
 
