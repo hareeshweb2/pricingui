@@ -53,9 +53,10 @@
 
                     <div class="form-group nic">
                         <label for="typeOfPlan">Naics Or Sic Code</label>
-                        <select class="form-control" id="nics" formControlName="nics">
+                        <!-- <select class="form-control" id="nics" formControlName="nics">
      <option *ngFor="let naic of arrNAICS" [value]="naic.value">{{naic.value}}</option>
-    </select>
+    </select> -->
+    <input class="form-control" id="naicCode" aria-describedby="naicCode" placeholder="Naic" formControlName="nics">
                         <span class="help-block" *ngIf="(leverForm.get('nics').touched || 
                                                          leverForm.get('nics').dirty) && 
                                                          leverForm.get('nics').errors">
