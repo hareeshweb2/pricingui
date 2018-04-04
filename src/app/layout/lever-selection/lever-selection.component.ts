@@ -177,10 +177,12 @@ export class LeverSelectionComponent implements OnInit {
         this.http
             .post(
                 "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
+                //"http://rhel7-ws04:8708/pricing/api/pricing/nextlevers",
                 initialRequest
             )
             .subscribe(
                 data => {
+                    this.selectedPlan = "";
                     this.initialResponse = data;
                     if (this.initialResponse.message) {
                         alert("No Data");
@@ -327,6 +329,7 @@ export class LeverSelectionComponent implements OnInit {
         this.http
             .post(
                 "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
+                //"http://rhel7-ws04:8708/pricing/api/pricing/nextlevers",
                 request2
             )
             .subscribe(
@@ -337,12 +340,19 @@ export class LeverSelectionComponent implements OnInit {
                         this.plans = [];
                         return;
                     } else {
-                        this.plans = this.response2.levers.find(
-                            i => i.name == "PLAN"
-                        ).elements;
-                        this.planLeverId = this.response2.levers.find(
-                            i => i.name == "PLAN"
-                        ).id;
+                        // this.plans = this.response2.levers.find(
+                        //     i => i.name == "PLAN"
+                        // ).elements;
+                        // this.planLeverId = this.response2.levers.find(
+                        //     i => i.name == "PLAN"
+                        // ).id; //commented for ticket 1004 work
+                        this.selectedPlan = "junk";
+                        this.response3 = data;
+                        this.leversWithoutNetworks = this.response3.levers.filter(el => el.network == null);
+                        if (this.response3.message) {
+                            alert("No Data Found for this selection");
+                            return;
+                        }
                     }
                 },
                 error => {
@@ -629,6 +639,7 @@ export class LeverSelectionComponent implements OnInit {
         this.http
             .post(
                 "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
+                //"http://rhel7-ws04:8708/pricing/api/pricing/nextlevers",
                 request3
             )
             .subscribe(
@@ -693,6 +704,8 @@ export class LeverSelectionComponent implements OnInit {
             }
         });
 
+        
+
         //client starts
 
         // this.rates = [
@@ -718,6 +731,7 @@ export class LeverSelectionComponent implements OnInit {
         this.http
             .post(
                 "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/rates",
+                //"http://rhel7-ws04:8708/pricing/api/pricing/rates",
                 this.ratesRequest
             )
             .subscribe(
@@ -730,7 +744,7 @@ export class LeverSelectionComponent implements OnInit {
                         alert("No Data Found for this selection");
                         return;
                     } else {
-                        this.rates = ratesResponse.rates;
+                        this.rates = ratesResponse.ratedPlans[0].rateGroups[0].rates;
                     }
                 },
                 error => {

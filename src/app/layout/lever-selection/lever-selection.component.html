@@ -52,7 +52,7 @@
 
 
                     <div class="form-group nic">
-                        <label for="typeOfPlan">Naics Or Sic Code</label>
+                        <label for="typeOfPlan">Naics Code</label>
                         <!-- <select class="form-control" id="nics" formControlName="nics">
      <option *ngFor="let naic of arrNAICS" [value]="naic.value">{{naic.value}}</option>
     </select> -->
@@ -61,7 +61,7 @@
                                                          leverForm.get('nics').dirty) && 
                                                          leverForm.get('nics').errors">
                             <span *ngIf="leverForm.get('nics').errors.required">
-                                Please select type of planNics or Sic Code.
+                                Please select Naics Code.
                             </span>
                         </span>
                     </div>
@@ -137,12 +137,12 @@
             <div class="col-sm-8">
                 <div class="" *ngIf="showPlans">
                     <label for="typeOfPlan">Available Plans</label>
-                    <select class="" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
+                    <!-- <select class="" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
       <option *ngFor="let plan1 of plans"[ngValue]="plan1">
           {{plan1.value}}
       </option>
      
-    </select>
+    </select> -->
                 </div>
                 <br />
 
