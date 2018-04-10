@@ -1,6 +1,6 @@
 <p-growl [(value)]="msgs" life=7000 ></p-growl>
 <div [@routerTransition]>
-    <h2 class="text-muted container">Lever Selection</h2>
+    <h2 class="text-muted container">Create A Quote</h2>
     <div class="container">
         <div class="row">
 
@@ -46,6 +46,20 @@
                                                          leverForm.get('typeOfPlan').errors">
                             <span *ngIf="leverForm.get('typeOfPlan').errors.required">
                                 Please select type of plan.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="replacingCoverage">REPLACING COVERAGE</label>
+                        <select class="form-control" id="replacingCoverage" formControlName="replacingCoverage">
+      <option *ngFor="let cov of arrCoverages" [ngValue]="cov">{{cov.value}}</option>
+    </select>
+                        <span class="help-block" *ngIf="(leverForm.get('replacingCoverage').touched || 
+                                                         leverForm.get('replacingCoverage').dirty) && 
+                                                         leverForm.get('replacingCoverage').errors">
+                            <span *ngIf="leverForm.get('replacingCoverage').errors.required">
+                                Please select replacing coverage.
                             </span>
                         </span>
                     </div>
@@ -136,7 +150,7 @@
 
             <div class="col-sm-8">
                 <div class="" *ngIf="showPlans">
-                    <label for="typeOfPlan">Available Plans</label>
+                    <label for="typeOfPlan" class="plan-name">Benefit Options</label>
                     <!-- <select class="" id="availPlan" [(ngModel)]="selectedPlan" (change)="getResponseForPlan()">
       <option *ngFor="let plan1 of plans"[ngValue]="plan1">
           {{plan1.value}}
@@ -144,7 +158,7 @@
      
     </select> -->
                 </div>
-                <br />
+               
 
                 <section *ngIf="selectedPlan">
 
@@ -166,30 +180,15 @@
 
 
 
+                    <div class="form-group">
+                        <label for="typeOfPlan">Would you like to include Co-Pay plans?</label>
+                        <input type="checkbox" [(ngModel)]="isCopayPlan">
+                    </div>
 
 
-
-                    <section *ngFor="let network of networksList" class="network-panel">
-                        <div class="network-name">{{network}}</div>
-
-                        <div class="" *ngFor="let lever of response3?.levers | filterForRates:network">
-
-                            <label for="typeOfPlan"> <span class="bc">{{lever.benefitClass}}</span> 
-                            <!-- -{{lever.name}} -->
-                        </label>
-                            <span class="percnt" *ngIf="lever.elements.length==1"> {{lever.elements[0].value}}%</span>
-                            <section style="display:inline-block" id="block" *ngIf="lever.elements.length!=1" class="vall">
-                                <select class="" [(ngModel)]="lever.selectedValue">
-      <option *ngFor="let element of lever.elements" [ngValue]="element">
-          {{element.value}}
-      </option>
-    </select>
-                            </section>
-
-                        </div>
-                    </section>
+                    
                     <br>
-                    <button style="float:right" type="button" class="btn btn-primary" (click)="getRates()">Get Rates</button>
+                    <button style="float:right" type="button" class="btn btn-primary" (click)="getRates()">Search Plans</button>
                     <br>
                     <br>
                 </section>
@@ -239,11 +238,13 @@
 
                          <section class="network-panel" style="padding-top:12px">
                             <!-- <div class="network-name">{{network}}</div> -->
-                            <div class="form-group" *ngFor="let rate of rates">
-                                <label for="">{{rate.tier}}</label>
-
-
-                                <span>&nbsp;{{rate.amount}}  </span>
+                            <div class="form-group" *ngFor="let ratedPlan of rates.ratedPlans">
+                                <div class="col-sm-4 plan-name">{{ratedPlan.name}}</div>
+                                <div class="col-sm-8"  *ngFor="let rate of ratedPlan.rateGroups[0].rates">
+                                        <label for="">{{rate.tier}}</label>
+                                        <span>&nbsp;{{rate.amount}}  </span>
+                                </div>
+                               
                             </div>
 
 

@@ -20,6 +20,9 @@ import { Message } from 'primeng/api';
     animations: [routerTransition()]
 })
 export class LeverSelectionComponent implements OnInit {
+    isCopayPlan: boolean=true;
+    endPointUrl: string="http://pricing-qa.corvestacloud.com:8708";
+    //endPointUrl: string="http://rhel7-ws04:8708";
     msgs: Message[] = [];
     leversWithoutNetworks: any;
     showRates: boolean = false;
@@ -48,11 +51,13 @@ export class LeverSelectionComponent implements OnInit {
     arrPlanTypes: any;
     arrNAICS: any;
     arrNoOfEmps: any;
+    arrCoverages:any;
 
     regionLeverId: any;
     planTypeLeverId: any;
     NAICSLeverId: any;
     noOfEmpsLeverId: any;
+    coveragesLeverId: any;
     planLeverId: any;
 
     constructor(private fb: FormBuilder, private http: HttpClient) { }
@@ -63,10 +68,11 @@ export class LeverSelectionComponent implements OnInit {
         this.leverForm = this.fb.group({
             dateEffective: ["", [Validators.required]],
             typeOfPlan: ["", [Validators.required]],
-            nics: ["", [Validators.required]],
-            zipCode: ["", [Validators.required, Validators.pattern("[0-9]{5}")]],
-            noOfEmps: ["", [Validators.required]],
-            noOfEmpsVA: ['', [Validators.required]]
+            replacingCoverage:["", [Validators.required]],
+            nics: ["444110", [Validators.required]],
+            zipCode: ["24401", [Validators.required, Validators.pattern("[0-9]{5}")]],
+            noOfEmps: ["10", [Validators.required]],
+            noOfEmpsVA: ["1", [Validators.required]]
             //,
             //region: ["", [Validators.required]]
             //,
@@ -176,8 +182,7 @@ export class LeverSelectionComponent implements OnInit {
         //server
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
-                //"http://rhel7-ws04:8708/pricing/api/pricing/nextlevers",
+                this.endPointUrl+"/pricing/api/pricing/nextlevers",
                 initialRequest
             )
             .subscribe(
@@ -206,6 +211,12 @@ export class LeverSelectionComponent implements OnInit {
                         ).elements;
                         this.planTypeLeverId = this.initialResponse.levers.find(
                             i => i.name == "PLAN TYPE"
+                        ).id;
+                        this.arrCoverages = this.initialResponse.levers.find(
+                            i => i.name == "REPLACING COVERAGE"
+                        ).elements;
+                        this.coveragesLeverId = this.initialResponse.levers.find(
+                            i => i.name == "REPLACING COVERAGE"
                         ).id;
                         // this.arrNAICS = this.initialResponse.levers.find(
                         //     i => i.name == "NAICS"
@@ -276,6 +287,11 @@ export class LeverSelectionComponent implements OnInit {
                     leverId: this.planTypeLeverId,
                     elementId: this.leverForm.value.typeOfPlan.id,
                     selectedValue: this.leverForm.value.typeOfPlan.value.toLowerCase()
+                },
+                {
+                    leverId: this.coveragesLeverId,
+                    elementId: this.leverForm.value.replacingCoverage.id,
+                    selectedValue: this.leverForm.value.replacingCoverage.value.toLowerCase()
                 }
                 // ,
                 // {
@@ -328,8 +344,7 @@ export class LeverSelectionComponent implements OnInit {
         //server
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
-                //"http://rhel7-ws04:8708/pricing/api/pricing/nextlevers",
+                this.endPointUrl+"/pricing/api/pricing/nextlevers",
                 request2
             )
             .subscribe(
@@ -638,8 +653,7 @@ export class LeverSelectionComponent implements OnInit {
         //server start
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/nextlevers",
-                //"http://rhel7-ws04:8708/pricing/api/pricing/nextlevers",
+                this.endPointUrl+"/pricing/api/pricing/nextlevers",
                 request3
             )
             .subscribe(
@@ -681,6 +695,7 @@ export class LeverSelectionComponent implements OnInit {
             effectiveDate: this.leverForm.value.dateEffective,
             zipCode: this.leverForm.value.zipCode,
             naics: this.leverForm.value.nics,
+            isCopayPlan: this.isCopayPlan,
             selections: []
         };
 
@@ -704,6 +719,27 @@ export class LeverSelectionComponent implements OnInit {
             }
         });
 
+      
+        
+        let empLever:any= {
+            leverId: this.noOfEmpsLeverId,
+            elementId: null,
+            selectedValue: this.leverForm.value.noOfEmps.toString()
+        };
+        this.ratesRequest.selections.push(empLever);
+        let coverageLever:any={
+            leverId: this.planTypeLeverId,
+            elementId: this.leverForm.value.typeOfPlan.id,
+            selectedValue: this.leverForm.value.typeOfPlan.value.toLowerCase()
+        };
+        this.ratesRequest.selections.push(coverageLever);
+        let planTypeLever:any={
+            leverId: this.coveragesLeverId,
+            elementId: this.leverForm.value.replacingCoverage.id,
+            selectedValue: this.leverForm.value.replacingCoverage.value.toLowerCase()
+        };
+        this.ratesRequest.selections.push(planTypeLever);
+
         
 
         //client starts
@@ -725,13 +761,14 @@ export class LeverSelectionComponent implements OnInit {
         //     { network: "OON", tier: "Subscriber + Children", amount: 34.5 },
         //     { network: "OON", tier: "Family", amount: 35 }
         // ];
+
+
         // client ends
 
         //server start
         this.http
             .post(
-                "http://pricing-qa.corvestacloud.com:8708/pricing/api/pricing/rates",
-                //"http://rhel7-ws04:8708/pricing/api/pricing/rates",
+                this.endPointUrl+"/pricing/api/pricing/rates",
                 this.ratesRequest
             )
             .subscribe(
@@ -744,7 +781,7 @@ export class LeverSelectionComponent implements OnInit {
                         alert("No Data Found for this selection");
                         return;
                     } else {
-                        this.rates = ratesResponse.ratedPlans[0].rateGroups[0].rates;
+                        this.rates = ratesResponse;
                     }
                 },
                 error => {
